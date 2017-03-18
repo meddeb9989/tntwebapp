@@ -7,7 +7,7 @@ from flask import render_template, redirect, request
 import sys
 import subprocess
 import time
-from .. import app
+from tntwebapp.flask_app import app
 from pagination import Paginate
 import requests
 from user import User
