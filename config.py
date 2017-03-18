@@ -11,6 +11,8 @@ _basedir = _appdir.rstrip("src/sos/web")
 
 DEBUG = True
 
+APPLICATION_ROOT = _appdir
+
 ADMINS = frozenset(['meddeb9989@hotmail.fr'])
 SECRET_KEY = 'think_u_can_guess_it_?_well_think_again'
 

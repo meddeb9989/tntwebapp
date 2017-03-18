@@ -7,21 +7,19 @@ from flask import render_template, redirect, request
 import sys
 import subprocess
 import time
-from .flask_app import app
+from webapp import app
 from pagination import Paginate
 import requests
 from user import User
 import json
 from requests.auth import HTTPDigestAuth
 
-
-app.token=None
 app.website_url="http://localhost:8000/"
+app.token=None
 
 @app.route('/')
 def index():
     return redirect("/signin/")
-
 
 @app.route("/signin/", methods=['GET', 'POST'])
 def signin():
