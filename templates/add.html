@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block title %}Add Page{% endblock %}
+
+{% block head %}
+  {{ super() }}
+      <link href="{{STATIC_ASSETS_URL}}/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+      <link href="{{STATIC_ASSETS_URL}}/css/bootstrap-datetimepicker.css" rel="stylesheet">
+      <style>
+          .centered-form {
+              margin-top: 40px;
+              margin-bottom: 50px;
+          }
+
+      </style>
+{% endblock %}
+   
+{% block content %}
+
+          {% with username=user.login, userid=user.id, search=False %}
+          {% include 'navebar.html' %}
+          {% endwith %}
+
+        <div class="row centered-form">
+          <div class="col-sm-6 col-md-5 col-lg-7 col-md-offset-2 col-lg-offset-2">
+                    <div class="form-group">
+                        <h3 class="panel-title text-center">Ajouter Campagne</h3><br>
+                    </div>
+                        <form name="form" method="post" action="" enctype="multipart/form-data">
+                         {% if fields %}  
+                            <div class="form-group">
+                               <input type="text" class="form-control" placeholder="EAN 13" name="ean13" value="{{ean13}}" disabled>
+                               {% if Errors %}
+                               {% if Errors.get('Ean13') %}
+                                   {% for mes in Errors.get('Ean13') %}
+                                       <font color="red">{{mes}} !</font><br>
+                                   {% endfor %}
+                               {% else %}
+                                 <br>  
+                               {% endif %}
+                               {% else %}
+                                 <br>    
+                               {% endif %}
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                     {% with date="Date Début Promo", type="form_datetime_begin", date_type="dd M yyyy - hh:ii", value=fields['begin_date'], name="begin_date", id="begin_date" %}
+                                     {% include 'time.html' %}
+                                     {% endwith %}
+               
+                                     {% if Errors %}
+                                     {% if Errors.get('BeginDate') %}
+                                         {% for mes in Errors.get('BeginDate') %}
+                                             <font color="red">{{mes}} !</font><br>
+                                         {% endfor %}   
+                                     {% endif %}
+                                     {% endif %} 
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group" id="end_date_id" style="display: {{display}};">
+                                     {% with date="Date Fin Promo", type="form_datetime_end", date_type="dd M yyyy - hh:ii", value=fields['end_date'], name="end_date", id="end_date" %}
+                                     {% include 'time.html' %}
+                                     {% endwith %}
+               
+                                     {% if Errors %}
+                                     {% if Errors.get('EndDate') %}
+                                         {% for mes in Errors.get('EndDate') %}
+                                             <font color="red">{{mes}} !</font><br>
+                                         {% endfor %}
+                                     {% endif %}
+                                     {% if Errors.get('Date') %}
+                                         {% for mes in Errors.get('Date') %}
+                                             <font color="red">{{mes}} !</font><br>
+                                         {% endfor %}  
+                                     {% endif %}
+                                     {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                              <div class="input-group">
+                                 <input type="text" class="form-control" placeholder="Prix Initiale" name="old_price"  value="{{price}}" disabled>
+                                 <span class="input-group-addon"><span class="glyphicon glyphicon-euro"></span></span>
+                              </div>
+                                 {% if Errors %}
+                                    {% if Errors.get('OldPrice') %}
+                                        {% for mes in Errors.get('OldPrice') %}
+                                            <font color="red">{{mes}} !</font><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if Errors.get('Price') %}
+                                        {% for mes in Errors.get('Price') %}
+                                            <font color="red">{{mes}} !</font><br>
+                                        {% endfor %}
+                                    {% endif %}
+                                 {% else %}
+                                   <br>
+                                 {% endif %}
+                            </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                              <div class="input-group">
+                                 <input type="text" class="form-control" placeholder="Prix Promo" name="new_price"  value="{{fields['new_price']}}" required>
+                                 <span class="input-group-addon"><span class="glyphicon glyphicon-euro"></span></span>
+                              </div>
+                                 {% if Errors %}
+                                 {% if Errors.get('NewPrice') %}
+                                     {% for mes in Errors.get('NewPrice') %}
+                                         <font color="red">{{mes}} !</font><br>
+                                     {% endfor %}
+                                 {% else %}
+                                     <br>
+                                 {% endif %}
+                                 {% else %}
+                                   <br>
+                                 {% endif %}
+                            </div>
+                            </div>
+                            </div>
+
+                            <div class="form-group">
+                                 <input type="text" class="form-control" placeholder="Remise 20% , 3 pour le prix de 2 , 50% sur la Deuxième achetée ..." name="description" value="{{fields['description']}}">
+
+                                 {% if Errors %}
+                                 {% if Errors.get('Description') %}
+                                     {% for mes in Errors.get('Description') %}
+                                         <font color="red">{{mes}} !</font><br>
+                                     {% endfor %}
+                                 {% else %}
+                                     <br>
+                                 {% endif %}
+                                 {% else %}
+                                   <br>  
+                                 {% endif %}
+                            </div>
+                         {% else %}
+                            <div class="form-group">
+                               <input type="text" class="form-control" placeholder="EAN 13" name="ean13" value="{{ean13}}" disabled><br>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                     {% with date="Date Début Promo", type="form_datetime_begin", date_type="dd M yyyy - hh:ii", name="begin_date", id="begin_date" %}
+                                     {% include 'time.html' %}
+                                     {% endwith %}
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group" id="end_date_id" style="display: {{display}};">
+                                     {% with date="Date Fin Promo", type="form_datetime_end", date_type="dd M yyyy - hh:ii", name="end_date", id="end_date" %}
+                                     {% include 'time.html' %}
+                                     {% endwith %}
+                                    </div>
+                                </div>
+                            </div>
+                          <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                              <div class="input-group">
+                                 <input type="text" class="form-control" placeholder="Prix Initiale" name="old_price" value="{{price}}" disabled>
+                                 <span class="input-group-addon"><span class="glyphicon glyphicon-euro"></span></span>
+                              </div>
+                            </div>
+                            </div>
+
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="form-group">
+                              <div class="input-group">
+                                 <input type="text" class="form-control" placeholder="Prix Promo" name="new_price"  required>
+                                 <span class="input-group-addon"><span class="glyphicon glyphicon-euro"></span></span>
+                              </div>
+                               <br>
+                            </div>
+                            </div>
+                            </div>
+
+                            <div class="form-group">
+                               <input type="text" class="form-control" placeholder="Remise 20% , 3 pour le prix de 2 , 50% sur la Deuxième achetée ..." name="description" ><br>
+                            </div>
+
+                         {% endif %}
+                            <div class="form-group" style="height:60px;">
+                              <div class="row">
+                                  <div class="col-xs-6 col-sm-4">
+                                     <label>
+                                       <input type="checkbox" name="check" id="checkbox" onchange="javascript:visibilite('id_div_1'); return false;" value="Checkbox" >
+                                       Télécharger une Image
+                                     </label>
+                                  </div>
+
+                                  <div class="col-xs-6 col-sm-4" id="id_div_1" style="display:none;">
+                                      <input class="btn btn-primary btn-block" type="file"
+                                       name="file" title="<span class='glyphicon glyphicon-open'></span>&nbsp;&nbsp;&nbsp;&nbsp;Search for File to Upload&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                                  </div>
+
+                                  </div>
+                                  {% if Errors %}
+                                  {% if Errors.get('Path') %}
+                                    {% for mes in Errors.get('Path') %}
+                                        <font color="red">{{mes}} !</font><br>
+                                    {% endfor %}
+                                  {% else %}
+                                     <br>   
+                                  {% endif %}
+                                  {% else %}
+                                     <br>  
+                                  {% endif %}
+
+                            </div>
+                          <div class="form-group">
+                              <div class="row">
+                                  <div class="col-xs-6 col-sm-4">
+                                     <br>
+                                  </div>
+                                  <div class="col-xs-6 col-sm-4">
+                                      <br>
+                                  </div>
+                                  <div class="col-xs-6 col-sm-4">
+                                     <button type="submit" name="btn" class="btn btn-success btn-block">
+                                        <span class="glyphicon glyphicon-saved"></span>&nbsp;&nbsp;Ajouter</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </form>
+
+            </div>
+        </div>
+
+{% endblock %}
+{% block script %}
+{{ super() }}
+  <script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/bootstrap.file-input.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/campagne/time.js" charset="UTF-8"></script>
+      <script language="javascript" type="text/javascript">
+        $('input[type=file]').bootstrapFileInput();
+        $('.file-inputs').bootstrapFileInput();
+        function visibilite(thingId_1)
+         {
+            var targetElement_1 = document.getElementById(thingId_1);
+            var file_input = document.getElementById("input_file");
+            if (targetElement_1.style.display == "none")
+            {
+              targetElement_1.style.display = "" ;
+              document.getElementById("checkbox").checked = true;
+              file_input.innerHTML("<input type='hidden' name='file'>");
+            } else {
+              targetElement_1.style.display = "none" ;
+                file_input.innerHTML("");
+              document.getElementById("checkbox").checked = false;
+            }         
+         }
+      </script>
+{% endblock %}

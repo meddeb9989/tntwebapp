@@ -1,0 +1,7 @@
+Flask
+Flask-Admin
+Flask-Login
+Jinja2
+Werkzeug
+ordereddict
+requests

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Stats Page{% endblock %}
+
+{% block head %}
+  {{ super() }}
+<link href="{{STATIC_ASSETS_URL}}/css/bootstrap-datepicker.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+  {% with username=user.login, userid=user.id, search=False %}
+  {% include 'navebar.html' %}
+  {% endwith %}
+
+  <form action="" method="post" >
+   <div class="row">
+        <div class="col-sm-12 col-md-12">
+           <h3 class="form-signin-heading">{{campainName}}<br><br></h3>
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                  <div class="form-group">
+                    {% with date="Date Début Promo", type="form_date_begin", date_type="dd M yyyy", name="begin_date", id="begin_date" %}
+                    {% include 'time.html' %}
+                    {% endwith %}
+                  </div>
+
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                  <div class="form-group" id="end_date_id" style="display: {{display}};">
+                    {% with date="Date Fin Promo", type="form_date_end", date_type="dd M yyyy", name="end_date", id="end_date" %}
+                    {% include 'time.html' %}
+                    {% endwith %}
+                  </div>
+                </div>
+                
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                  <div class="form-group">
+                   <button type="submit" class="btn btn-primary">Statistique</button>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <div class="form-group">
+                   <embed type="image/svg+xml" src="{{click}}" width="1000px" height="300px"></embed>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <div class="form-group">
+                   <embed type="image/svg+xml" src="{{affich}}" width="1000px" height="300px"></embed>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </form>
+
+{% endblock %}
+{% block script %}
+{{ super() }}
+<script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/bootstrap.js"></script>
+<script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/bootstrap-datepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/locales/bootstrap-datepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript">
+
+    $('.form_date_begin').datepicker({
+      language: 'fr',
+      autoclose: true,
+      forceParse: false
+    });
+
+    $('.form_date_end').datepicker({
+      language: 'fr',
+      autoclose: true,
+      forceParse: false
+     });
+
+
+</script>
+{% endblock %}

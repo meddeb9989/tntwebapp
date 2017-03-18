@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Page{% endblock %}
+
+{% block content %}
+
+        {% with username=user.login, userid=user.id, search=False %}
+        {% include 'navebar.html' %}
+        {% endwith %}
+
+   <form method="post" action="">
+      {% if campainList== [] %}
+       <div class="container">
+         <h2>Voulez Vous Vraiment Supprimer {{campainName}} de la Liste ? </h2>
+       </div>
+      {% else %}
+         <div class="container">
+           <h2>Voulez Vous Vraiment Supprimer : </h2>
+            {% for name in campainList %}
+              <h5> - {{name}}</h5>
+            {% endfor %}
+            <h2>de la Liste ?</h2>
+         </div>
+       {% endif %}  
+       <div class="container"><br><br><br></div>
+
+       <div class="container">
+
+         <div class="col-lg-3"><br></div>
+         <div class="col-lg-3"><br></div>
+         <div class="col-lg-2"><br></div>
+
+         <div class="col-lg-4">
+           <button class="btn btn-danger" type="submit" name="btn" value="doDelete">Oui</button>
+           <button class="btn btn-success" type="submit" name="btn" value="doNotDelete">Non</button>
+         </div>
+
+       </div>
+       
+   </form>
+
+{% endblock %}

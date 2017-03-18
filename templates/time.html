@@ -1,0 +1,10 @@
+
+  <div class="input-group date {{type}} " data-date-format="{{date_type}}">
+    {% if value %}
+    <input class="form-control" type="text" placeholder="{{date}}" name="{{name}}" id="{{id}}" value="{{value}}" readonly required>
+    {% else %}
+    <input class="form-control" type="text" placeholder="{{date}}" name="{{name}}" id="{{id}}" value="" readonly required>
+    {% endif %}
+    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+  </div>
+  <br>

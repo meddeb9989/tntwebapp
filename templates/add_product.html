@@ -1,0 +1,394 @@
+{% extends "base.html" %}
+
+{% block title %}Add Page{% endblock %}
+
+{% block head %}
+  {{ super() }}
+      <style>
+          .centered-form {
+              margin-top: 40px;
+              margin-bottom: 50px;
+          }
+
+      </style>
+{% endblock %}
+   
+{% block content %}
+
+          {% with username=user.login, userid=user.id, search=False %}
+          {% include 'navebar.html' %}
+          {% endwith %}
+
+        <div class="row centered-form">
+          <div class="col-sm-6 col-md-5 col-lg-7 col-md-offset-2 col-lg-offset-2">
+                    <div class="form-group">
+                        <h3 class="panel-title text-center">Ajouter Produit</h3><br>
+                    </div>
+                        <form name="form" method="post" action="" id="myForm" enctype="multipart/form-data">
+                         {% if fields %}
+                          <div class="row">
+                             <div class="col-xs-6 col-sm-6 col-md-6">
+                                 <div class="form-group">
+                                  <input type="text" class="form-control" placeholder="EAN 13" name="ean13" value="{{fields['ean13']}}" required>
+                                  {% if Errors %}
+                                  {% if Errors.get('Ean13') %}
+                                      {% for mes in Errors.get('Ean13') %}
+                                          <font color="red">{{mes}} !</font><br>
+                                      {% endfor %}
+                                  {% else %}
+                                    <br>  
+                                  {% endif %}
+                                  {% else %}
+                                    <br>    
+                                  {% endif %}
+                                 </div>
+                             </div>
+                             <div class="col-xs-6 col-sm-6 col-md-6">
+                                 <div class="form-group">
+                                   <input type="text" class="form-control" placeholder="Nom de Produit" name="product_name" value="{{fields['product_name']}}" required>
+                                   {% if Errors %}
+                                   {% if Errors.get('product_name') %}
+                                       {% for mes in Errors.get('product_name') %}
+                                           <font color="red">{{mes}} !</font><br>
+                                       {% endfor %}
+                                   {% else %}
+                                     <br>  
+                                   {% endif %}
+                                   {% else %}
+                                     <br>    
+                                   {% endif %}
+                                 </div>
+                             </div>
+                          </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                     <input type="text" class="form-control" placeholder="Nom de la Marque" name="trade_mark" value="{{fields['trade_mark']}}" required>
+                                     {% if Errors %}
+                                     {% if Errors.get('trade_mark') %}
+                                         {% for mes in Errors.get('trade_mark') %}
+                                             <font color="red">{{mes}} !</font><br>
+                                         {% endfor %}   
+                                     {% endif %}
+                                     {% endif %} 
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                     <div class="input-group">
+                                       <input type="text" class="form-control" placeholder="Prix" name="price"  value="{{fields['price']}}" required>
+                                       <span class="input-group-addon"><span class="glyphicon glyphicon-euro"></span></span>
+                                     </div>
+                                       {% if Errors %}
+                                          {% if Errors.get('price') %}
+                                              {% for mes in Errors.get('price') %}
+                                                  <font color="red">{{mes}} !</font><br>
+                                              {% endfor %}
+                                          {% endif %}
+                                       {% else %}
+                                         <br>
+                                       {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                  <input type="text" class="form-control" placeholder="Rayon" name="rayon" value="{{fields['rayon']}}" required>
+                                     {% if Errors %}
+                                     {% if Errors.get('rayon') %}
+                                         {% for mes in Errors.get('rayon') %}
+                                             <font color="red">{{mes}} !</font><br>
+                                         {% endfor %}   
+                                     {% endif %}
+                                     {% endif %} 
+                                </div>
+                              </div>
+
+                              <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                  <div class="well carousel-search hidden-sm">
+                                   <div class="btn-group"> 
+                                      <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">MDD<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="#"><span class="glyphicon glyphicon-ok"></span> Oui</a></li>
+                                      <li class="divider"></li>
+                                      <li><a href="#"><span class="glyphicon glyphicon-remove"></span> Non</a></li>
+                                    </ul>
+                                   </div>
+                                   {% if Errors %}
+                                     {% if Errors.get('mdd') %}
+                                         {% for mes in Errors.get('mdd') %}
+                                             <font color="red">{{mes}} !</font><br>
+                                         {% endfor %}   
+                                   {% endif %}
+                                   {% endif %} 
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                           <div class="row">
+                              <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                  <div class="well carousel-search hidden-sm">
+                                   <div class="btn-group"> 
+                                      <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#">Toutes les Catégories<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="#"> Informatique</a></li>
+                                      <li><a href="#"> Electromenager</a></li>
+                                    </ul>
+                                   </div>
+                                   {% if Errors %}
+                                     {% if Errors.get('category') %}
+                                         {% for mes in Errors.get('category') %}
+                                             <font color="red">{{mes}} !</font><br>
+                                         {% endfor %}   
+                                   {% endif %}
+                                   {% endif %} 
+                                  </div>
+                                </div>
+                              </div>
+                           </div>
+
+                            <div class="form-group">
+                                 <input type="text" class="form-control" placeholder="Description" name="description" value="{{fields['description']}}">
+
+                                 {% if Errors %}
+                                 {% if Errors.get('Description') %}
+                                     {% for mes in Errors.get('Description') %}
+                                         <font color="red">{{mes}} !</font><br>
+                                     {% endfor %}
+                                 {% else %}
+                                     <br>
+                                 {% endif %}
+                                 {% else %}
+                                   <br>  
+                                 {% endif %}
+                            </div>
+                         {% else %}
+                          <div class="row">
+                             <div class="col-xs-6 col-sm-6 col-md-6">
+                                 <div class="form-group">
+                                  <input type="text" class="form-control" placeholder="EAN 13" name="ean13"  autofocus>
+                                 </div>
+                             </div>
+                             <div class="col-xs-6 col-sm-6 col-md-6">
+                                 <div class="form-group">
+                                   <input type="text" class="form-control" placeholder="Nom de Produit" name="product_name" >
+                                 </div>
+                             </div>
+                          </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                     <input type="text" class="form-control" placeholder="Nom de la Marque" name="trade_mark" >
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                     <div class="input-group">
+                                       <input type="text" class="form-control" placeholder="Prix" name="price" >
+                                       <span class="input-group-addon"><span class="glyphicon glyphicon-euro"></span></span>
+                                     </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                  <input type="text" class="form-control" placeholder="Rayon" name="rayon" > 
+                                </div>
+                              </div>
+
+                              <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                   <div class="btn-group"> 
+                                      <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown">Marque de distributeur (MDD) <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                      <li><a id="mdd_yes"><span class="glyphicon glyphicon-ok"></span> Oui</a></li>
+                                      <li class="divider"></li>
+                                      <li><a id="mdd_no"><span class="glyphicon glyphicon-remove"></span> Non</a></li>
+                                    </ul>
+                                   </div>
+                                </div>
+                                <input type="hidden" id="mdd" name="mdd">
+                              </div>
+                            </div>
+
+                           <div class="row">
+                              <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                   {% if category_list %}
+                                     {% for cat_list in category_list %}
+                                         <div class="btn-group">
+                                            <a class="btn btn-default dropdown-toggle btn-select" data-toggle="dropdown" href="#" value="{{cat_list|split_id}}">{{cat_list|split_value}}<span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                             {% for categ_list in category_list[cat_list] %}
+                                                  <li><a id="{{categ_list[1]}}"> {{categ_list[0]}}</a></li>
+                                             {% endfor %}
+                                            </ul>
+                                         </div>
+                                     {% endfor %}
+                                    {% endif %}
+                                </div>
+                              </div>
+                           </div>
+
+                            <div class="form-group">
+                                 <input type="text" class="form-control" placeholder="Description" name="description" >
+                            </div>
+
+                         {% endif %}
+                            <div class="form-group">
+                              <div class="row">
+                                  <div class="col-xs-6 col-sm-4" style="height:34px;">
+                                     <label>
+                                       <input type="checkbox" name="check" id="checkboximage" onchange="javascript:visibilite('image', this.id); return false;" value="Checkbox" >
+                                       Télécharger Image
+                                     </label>
+                                  </div>
+
+                                  <div class="col-xs-6 col-sm-4" id="image" style="display:none;">
+                                      <input class="btn btn-primary btn-block" type="file"
+                                       name="file_image" title="<span class='glyphicon glyphicon-open'></span>&nbsp;&nbsp;&nbsp;&nbsp;Search for File to Upload&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                                  </div>
+
+                                  </div>
+                                  {% if Errors %}
+                                  {% if Errors.get('Path') %}
+                                    {% for mes in Errors.get('Path') %}
+                                        <font color="red">{{mes}} !</font><br>
+                                    {% endfor %}
+                                  {% else %}
+                                     <br>   
+                                  {% endif %}
+                                  {% else %}
+                                     <br>  
+                                  {% endif %}
+
+                            </div>
+
+                            <div class="form-group">
+                              <div class="row">
+                                  <div class="col-xs-6 col-sm-4" style="height:34px;">
+                                     <label>
+                                       <input type="checkbox" name="check" id="checkboxdemo" onchange="javascript:visibilite('video_demo', this.id); return false;" value="Checkbox" >
+                                       Télécharger Video Demo
+                                     </label>
+                                  </div>
+
+                                  <div class="col-xs-6 col-sm-4" id="video_demo" style="display:none;">
+                                      <input class="btn btn-primary btn-block" type="file"
+                                       name="file_demo" title="<span class='glyphicon glyphicon-open'></span>&nbsp;&nbsp;&nbsp;&nbsp;Search for File to Upload&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                                  </div>
+
+                                  </div>
+                                  {% if Errors %}
+                                  {% if Errors.get('Path') %}
+                                    {% for mes in Errors.get('Path') %}
+                                        <font color="red">{{mes}} !</font><br>
+                                    {% endfor %}
+                                  {% else %}
+                                     <br>   
+                                  {% endif %}
+                                  {% else %}
+                                     <br>  
+                                  {% endif %}
+
+                            </div>
+
+                          <div class="form-group" style="height:60px;">
+                              <div class="row">
+                                  <div class="col-xs-6 col-sm-4">
+                                     <label>
+                                       <input type="checkbox" name="check" id="checkboxtrademark" onchange="javascript:visibilite('video_trademark', this.id); return false;" value="Checkbox" >
+                                       Télécharger Video Marque
+                                     </label>
+                                  </div>
+
+                                  <div class="col-xs-6 col-sm-4" id="video_trademark" style="display:none;">
+                                      <input class="btn btn-primary btn-block" type="file"
+                                       name="file_trademark" title="<span class='glyphicon glyphicon-open'></span>&nbsp;&nbsp;&nbsp;&nbsp;Search for File to Upload&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;">
+                                  </div>
+
+                                  </div>
+                                  {% if Errors %}
+                                  {% if Errors.get('Path') %}
+                                    {% for mes in Errors.get('Path') %}
+                                        <font color="red">{{mes}} !</font><br>
+                                    {% endfor %}
+                                  {% else %}
+                                     <br>   
+                                  {% endif %}
+                                  {% else %}
+                                     <br>  
+                                  {% endif %}
+
+                            </div>
+                          <div class="form-group">
+                              <div class="row">
+                                  <div class="col-xs-6 col-sm-4">
+                                     <br>
+                                  </div>
+                                  <div class="col-xs-6 col-sm-4">
+                                      <br>
+                                  </div>
+                                  <div class="col-xs-6 col-sm-4">
+                                     <button type="submit" name="btn" class="btn btn-success btn-block">
+                                        <span class="glyphicon glyphicon-saved"></span>&nbsp;&nbsp;Ajouter</button>
+                                  </div>
+                              </div>
+                          </div>
+                          <input type="hidden" id="category_id" name="category_id">
+                        </form>
+
+            </div>
+        </div>
+
+{% endblock %}
+{% block script %}
+{{ super() }}
+  <script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/campagne/time.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/bootstrap.file-input.js" charset="UTF-8"></script>
+      <script language="javascript" type="text/javascript">
+        $(".dropdown-menu li a").click(function(){
+          var selText = $(this).text();
+          $(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+          if (this.id == "mdd_yes"){
+           var input_mdd = document.getElementById("mdd");
+           input_hidden.value = "1";
+
+          } else if(this.id == "mdd_no"){
+           var input_mdd = document.getElementById("mdd");
+           input_hidden.value = "0";
+
+          } 
+          else{
+           var input_hidden = document.getElementById("category_id");
+           input_hidden.value = this.id;
+           document.getElementById("myForm").submit();
+           }
+          });
+
+        $('input[type=file]').bootstrapFileInput();
+        $('.file-inputs').bootstrapFileInput();
+        function visibilite(id_download, id_checkbox)
+         {
+            var download_element = document.getElementById(id_download);
+            var checkbox = document.getElementById(id_checkbox);
+            if (download_element.style.display == "none")
+            {
+              download_element.style.display = "" ;
+              checkbox.checked = true;
+            } else {
+              download_element.style.display = "none" ;
+              checkbox.checked = false;
+            }         
+         }
+      </script>
+{% endblock %}

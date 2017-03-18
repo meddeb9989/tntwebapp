@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Configuration Page{% endblock %}
+
+{% block head %}
+  {{ super() }}
+      <style>
+          .centered-form {
+              margin-top: 40px;
+              margin-bottom: 50px;
+          }
+
+      </style>
+{% endblock %}
+
+{% block content %}
+
+        {% with username=user.login, userid=user.id, search=False %}
+        {% include 'navebar.html' %}
+        {% endwith %}
+
+   <form method="post" action="">
+     <div class="row centered-form">
+          <div class="col-sm-6 col-md-5 col-lg-7 col-md-offset-2 col-lg-offset-2">
+                    <div class="form-group">
+                      <h3 class="form-signin-heading text-center">Configuration de La Borne<br><br></h3>
+                    </div>
+              <br>
+             <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                   <div class="form-group">
+                    <button type="submit" name="btn_deactivate" class="btn btn-danger btn-block">
+                                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;&nbsp;Désactiver La Borne</button>
+                   </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                   <button type="submit" name="btn_activate" class="btn btn-info btn-block">
+                                        <span class="glyphicon glyphicon-ok-circle"></span>&nbsp;&nbsp;Activer La Borne</button>
+                </div>
+             </div>
+              <br>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                   <div class="form-group">
+                    <button type="submit" name="btn_home" class="btn btn-primary btn-block">
+                                        <span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;Mettre L'écran d'Acceuil</button>
+                   </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                   <button type="submit" name="btn_screensaver" class="btn btn-primary btn-block">
+                                        <span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;Mettre L'écran de Veille</button>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+              <div class="col-lg-12 col-md-11 col-sm-5 col-xs-12">
+              <div class="panel panel-default">
+               <div class="panel-heading">
+
+                <div class="row">
+                   <div class="col-xs-6 col-sm-6 col-md-6">
+                     Temps Entre deux Promotions (en secondes)
+                   </div>
+                   <div class="col-xs-4 col-sm-4 col-md-4">
+                        <input type="number" min="1" class="form-control" placeholder="en secondes" name="promotion_time" value="{{promotion_time}}"> 
+
+                   </div>
+                 </div>
+                <br><br>
+                  
+                <div class="row">
+                   <div class="col-xs-6 col-sm-6 col-md-6">
+                     Temps pour mettre l'écran de veille (en secondes)
+                   </div>
+                   <div class="col-xs-4 col-sm-4 col-md-4">
+                        <input type="number" min="1" class="form-control" placeholder="en secondes" name="screensaver_time" value="{{screensaver_time}}"> 
+
+                   </div>
+                 </div>
+                 <br>
+                 <div class="row">
+                   <div class="col-xs-6 col-sm-6 col-md-6">
+                     <br>
+                   </div>
+                   <div class="col-xs-4 col-sm-4 col-md-4">
+                        <button type="submit" name="btn_time" class="btn btn-success btn-block">
+                                        <span class="glyphicon glyphicon-saved"></span>&nbsp;&nbsp;Modifier</button>
+
+                   </div>
+                 </div>
+
+               </div>
+              </div>
+                
+             </div>         
+           </div>
+     </div>
+   </div>
+       
+   </form>
+
+{% endblock %}

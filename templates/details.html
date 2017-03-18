@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title %}Details Page{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  <link href="{{STATIC_ASSETS_URL}}/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  <link href="{{STATIC_ASSETS_URL}}/css/bootstrap-datetimepicker.css" rel="stylesheet">
+      <style>
+        #pos_fixed
+       {
+        position: fixed;
+        top: 75%;
+        margin-top: -2.5em;
+        left: 40%;
+        width: 300px;
+        }
+      </style>
+
+{% endblock %}
+   
+{% block content %}
+       
+
+      {% with username=user.login, userid=user.id, search=False %}
+          {% include 'navebar.html' %}
+      {% endwith %}
+
+      <form name="form" method="post" action="" enctype="multipart/form-data">
+      <div class="row">
+        <div class="col-sm-5 col-md-6">
+           <h3 class="form-signin-heading">{{campainByid["product_name"]}}<br><br></h3>
+             <input type="text" class="form-control" name="ean13" value="{{campainByid['ean13']}}" disabled><br>
+             <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                   <div class="form-group">
+                    {% with date="Date Début Promo", type="form_datetime_begin", date_type="dd M yyyy - hh:ii", name="begin_date", value=campainByid['begin_date'], id="begin_date" %}
+                    {% include 'time.html' %}
+                    {% endwith %}
+
+                    {% if Errors %}
+                      {% if Errors.get('BeginDate') %}
+                          {% for mes in Errors.get('BeginDate') %}
+                              <font color="red">{{mes}} !</font><br>
+                          {% endfor %}   
+                      {% endif %}
+                    {% endif %} 
+                   </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <div class="form-group" id="end_date_id">
+                    {% with date="Date Fin Promo", type="form_datetime_end", date_type="dd M yyyy - hh:ii", name="end_date", value=campainByid['end_date'], id="end_date" %}
+                    {% include 'time.html' %}
+                    {% endwith %}
+
+                    {% if Errors %}
+                      {% if Errors.get('EndDate') %}
+                          {% for mes in Errors.get('EndDate') %}
+                              <font color="red">{{mes}} !</font><br>
+                          {% endfor %}
+                      {% endif %}
+                      {% if Errors.get('Date') %}
+                          {% for mes in Errors.get('Date') %}
+                              <font color="red">{{mes}} !</font><br>
+                          {% endfor %}  
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+             </div>
+
+            <div class="row">
+              <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                 <div class="input-group">
+                   <input type="text" class="form-control" name="old_price" value="{{price}}" disabled>
+                   <span class="input-group-addon"><span class="glyphicon glyphicon-euro"></span></span>
+                 </div>
+
+                  {% if Errors %}
+                    {% if Errors.get('OldPrice') %}
+                        {% for mes in Errors.get('OldPrice') %}
+                            <font color="red">{{mes}} !</font><br>
+                        {% endfor %}
+                    {% endif %}
+                    {% if Errors.get('Price') %}
+                        {% for mes in Errors.get('Price') %}
+                            <font color="red">{{mes}} !</font><br>
+                        {% endfor %}
+                    {% endif %}
+                  {% else %}
+                   <br>
+                  {% endif %}
+               </div>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6">
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="new_price" value="{{campainByid['new_price']}}">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-euro"></span></span>
+                  </div>
+
+                {% if Errors %}
+                      {% if Errors.get('NewPrice') %}
+                          {% for mes in Errors.get('NewPrice') %}
+                              <font color="red">{{mes}} !</font><br>
+                          {% endfor %}
+                      {% else %}
+                          <br>
+                      {% endif %}
+                {% else %}
+                  <br>
+                {% endif %}
+              </div>
+               </div>
+             </div>
+             <input type="text" class="form-control" name="description" value="{{campainByid['description']}}"><br>
+
+              {% if Errors %}
+                {% if Errors.get('Description') %}
+                    {% for mes in Errors.get('Description') %}
+                        <font color="red">{{mes}} !</font><br>
+                    {% endfor %}
+                {% else %}
+                    <br>
+                {% endif %}
+              {% else %}
+                <br>
+              {% endif %}
+              <br>
+        </div>
+
+        <div class="col-sm-5 col-sm-offset-2 col-md-6 col-md-offset-0">
+            <br><br><br>
+            <img src="{{STATIC_MEDIA_URL}}/images/{{campainByid['ean13']}}.jpg" style="width: 100%; height: 45%;"/>
+            <div class="form-group" style="height:60px;">
+              <div class="row">
+                <div class="col-xs-6 col-sm-4">
+                  <br>
+                  <label>
+                  <input type="checkbox" name="check" id="checkbox" onchange="javascript:visibilite('id_div_1'); return false;"> Télécharger une image
+                  </label>
+                  <br>
+                </div>
+                <div class="col-xs-6 col-sm-5" id="id_div_1" style="display:none;">
+                  <br><input class="btn btn-primary btn-block" type="file"
+                      name="file" title="<span class='glyphicon glyphicon-open'></span>&nbsp;&nbsp;&nbsp;&nbsp;Search for File to Upload&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"><br>
+                </div>
+              </div>
+               {% if Errors %}
+                  {% if Errors.get('Path') %}
+                    {% for mes in Errors.get('Path') %}
+                        <font color="red">{{mes}} !</font><br>
+                    {% endfor %}
+                  {% else %}
+                     <br>   
+                  {% endif %}
+               {% else %}
+                  <br>  
+               {% endif %}
+            </div>
+        </div>
+      </div>
+          <div class="form-group">
+                    <div class="col-lg-10 col-xs-12 col-sm-12 col-lg-offset-2">
+                      <button class="btn btn-sm btn-danger" type="submit" name="btn" value="delete"><span class="glyphicon glyphicon-trash"></span> Supprimer</button>
+                      <button class="btn btn-sm btn-primary" type="submit" name="btn" value="stats"><span class="glyphicon glyphicon-stats"></span> Voir Stats</button>
+                      <button class="btn btn-sm btn-info" type="submit" name="btn" value="update"><span class="glyphicon glyphicon-refresh"></span> Enregistrer</button>
+
+                  </div>
+          </div>
+     </form>
+
+{% endblock %}
+{% block script %}
+{{ super() }}
+<script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/bootstrap.file-input.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/campagne/time.js" charset="UTF-8"></script>
+<script language="javascript" type="text/javascript">
+        $('input[type=file]').bootstrapFileInput();
+        $('.file-inputs').bootstrapFileInput();
+        function visibilite(thingId)
+         {
+            var targetElement;
+            targetElement = document.getElementById(thingId);
+
+            if (targetElement.style.display == "none")
+            {
+              targetElement.style.display = "" ;
+              document.getElementById("checkbox").checked = true;
+            } else {
+              targetElement.style.display = "none" ;
+              document.getElementById("checkbox").checked = false;
+            }         
+         }
+</script>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block content %}
+
+      {% if solde %}
+        {% with username=user, userid=userid, search=True, search_text=search_text, solde=solde %}
+          {% include 'navebar.html' %}
+        {% endwith %}
+      {% else %}
+        {% with username=user, userid=userid, search=True, search_text=search_text %}
+          {% include 'navebar.html' %}
+        {% endwith %}    
+      {% endif %}
+
+      {% if validation == "valid" %}
+        {% set valid = "checked" %}
+        {% set invalid = "" %}
+        {% set coming = "" %}
+      {% elif validation == "invalid" %}
+        {% set invalid = "checked" %}
+        {% set valid = "" %}
+        {% set coming = "" %}
+      {% elif validation == "coming" %}
+        {% set valid = "" %}
+        {% set invalid = "" %}
+        {% set coming = "checked" %}
+      {% else %}
+        {% set valid = "" %}
+        {% set invalid = "" %}
+        {% set coming = "" %}
+      {% endif %}
+
+     <form name="form" id="myForm" method="post" action="">
+       <div class="row">
+           <br><br>
+         <div class="form-group" >
+                <div class="col-lg-3 col-xs-6 col-sm-4 col-lg-offset-1">
+                  {% if usertype == "Employeur" %}
+                  <h2>Liste des Employés</h2>
+                  {% elif usertype == "Employe&Employeur" %}
+                  <h2>Liste des Employés/Cartes</h2>
+                  {% else %}
+                  <h2>Liste des Transactions</h2>
+                  {% endif %}
+                   
+                </div>
+                <div class="col-lg-1">
+                    <br>
+                </div>
+                <div class="col-lg-2 col-xs-6 col-sm-4">
+                  <br>
+                  {% if usertype == "Employeur" %}
+                  <button class="btn btn-block btn-success" type="submit" name="btn" value="add" style="margin-top: 8px;"><span class="glyphicon glyphicon-plus"></span> Ajouter Employé </button>
+                  {% elif usertype == "Employe" %}
+                  <button class="btn btn-block btn-danger" type="submit" name="bloc" value="bloc" style="margin-top: 8px;"><span class="glyphicon glyphicon-remove"></span> Opposition Carte</button>
+
+                  {% endif %}
+                  
+                </div>
+             </div>
+            </div>
+
+            <div class="container"><br></div>
+                
+            <div class="container">
+                {% with usertype=usertype %}
+                 {% include 'table.html' with context %}
+                {% endwith %}
+                 
+                {% include 'pagination.html' with context %}
+            </div>
+     </form> 
+
+{% endblock %}
+{% block script %}
+{{ super() }}
+<script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/campagne/visibility.js" charset="UTF-8"></script>
+<script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/campagne/validity_check.js" charset="UTF-8"></script>
+{% endblock %}

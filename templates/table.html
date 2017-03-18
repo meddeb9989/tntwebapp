@@ -1,0 +1,143 @@
+                    <table class="table table">
+                    <thead>
+                    </thead>
+                    <tbody>
+
+
+                    {% if usertype == "Employeur" %}
+                      
+                      {% if MyCampainsList|length > 1 %}
+                      <tr style="height: 72px;">
+                       <td class="col-xs-2 col-sm-2 col-md-2">
+                         <label style="height: 30px;">
+                          <input type="checkbox" name="btncheckAll" id="checkboxAll" onchange="javascript:visibilite(this.id); return false;" > Selectionner Tout
+                         </label>
+                         <br><br>
+                       </td>
+                      {% else %}
+                       <tr style="height: 72px;">
+                       <td class="col-xs-2 col-sm-2 col-md-2">
+                           <br><br>
+                       </td>
+                      {% endif %}
+                       <td class="col-xs-2 col-sm-2 col-md-2">
+                        <div id="id_show_valid_check" style="display:'';">
+                           <label style="height: 30px;">
+                            <input type="checkbox" name="btnShowValid" id="show_Valid" onchange="javascript:visibilite(this.id); return false;"  {{valid}}> Afficher Valides
+                           </label>
+                        </div>
+                        <div id="id_compare_btn" style="display:none;">
+                            <button class="btn btn-block btn-info" type="submit" name="btn" value="compareAll"><span class="glyphicon glyphicon-stats"> Comparer</button>
+                        </div>
+                       </td>
+                          
+                       <td calss="col-xs-6 col-sm-6 col-md-6">
+                        <div id="id_show_invalid_check" style="display:'';">
+                          <div class="col-xs-4 col-sm-4 col-md-4" >
+                           <label style="height: 30px;">
+                            <input type="checkbox" name="btnShowinValid" id="show_inValid" onchange="javascript:visibilite(this.id); return false;" {{invalid}}> Afficher Invalides
+                           </label>
+                          </div>
+                          <div class="col-xs-4 col-sm-4 col-md-4">
+                              <br><br>
+                          </div>
+                        </div>
+                          <div class="col-xs-4 col-sm-4 col-md-4" id="id_export_btn" style="display:none;">
+                           <button class="btn btn-block btn-primary" type="submit" name="btn" value="exportCSVAll"><span class="glyphicon glyphicon-euro"></span> Recharger </button>
+                          </div> 
+                          <div class="col-xs-4 col-sm-4 col-md-4" id="id_delete_btn" style="display:none;">
+                            <button class="btn btn-block btn-danger" type="submit" name="btn" value="deleteAll"><span class="glyphicon glyphicon-trash"></span> Déclarer </button>
+                          </div> 
+
+                       </td>
+                          
+                      </tr>
+
+                      
+                       {% for campainid, campaininfo in MyCampainsList.iteritems() %} 
+                       <tr style="height: 42px;">                      
+                           <td style="width:25%;">
+                              <label>
+                                 <input type="checkbox" name="checkfor_{{campainid}}" onchange="javascript:visibilite(this.id); return false;" id="checkbox_{{ campainid }}">
+                              </label>
+                              <a href="/campain/details={{ campainid }}" size="18"><font color="green" id="campain_name_{{ campainid }}">{{campaininfo["Nom"]}}</font></a>
+                           </td>
+                           <td>{{campaininfo["Carte"]}}
+                            <input type="hidden" name="carte" id="carte_{{campainid}}" value="{{campaininfo['Carte']}}">
+                           </td>
+                           <td>
+                               <div class="col-xs-6 col-sm-3">
+                                 {{campaininfo["Date"]}}
+                                 <input type="hidden" name="Date" id="Date_{{campainid}}" value="{{campaininfo['Date']}}">
+                               </div> 
+                               <div class="col-xs-6 col-sm-3">
+                                 <font id="validity_{{ campainid }}" name="validity_for_{{campainid}}"></font>
+                               </div> 
+                               <div class="col-xs-6 col-sm-3" id="export_{{ campainid }}" style="display:'';">
+                                 <button class="btn btn-xs btn-primary" type="submit" name="btn" value="recharge_{{ campainid }}"><span class="glyphicon glyphicon-euro"></span> Recharger </button>
+                               </div> 
+                               <div class="col-xs-6 col-sm-3" id="delete_{{ campainid }}" style="display:'';">
+                                <button class="btn btn-xs btn-danger" type="submit" name="btn" value="delete_{{ campainid }}"><span class="glyphicon glyphicon-trash"></span> Déclarer  </button>
+                               </div> 
+                           </td>
+                        </tr>
+                       {% endfor %}
+
+
+                    {% else %}
+                      {% if MyCampainsList|length > 1 %}
+                      <tr style="height: 72px;">
+                       <td class="col-xs-2 col-sm-2 col-md-2">
+                         <label style="height: 30px;">
+                         </label>
+                         <br><br>
+                       </td>
+                      {% else %}
+                       <tr style="height: 72px;">
+                       <td class="col-xs-2 col-sm-2 col-md-2">
+                           <br><br>
+                       </td>
+                      {% endif %}
+                          
+                      </tr>
+
+                      
+                       {% for campainid, campaininfo in MyCampainsList.iteritems() %} 
+                       <tr style="height: 42px;">                      
+                           <td style="width:25%;">
+                              <label>
+                              </label>
+                              &nbsp;
+                              <a href="/campain/details={{ campainid }}" size="18"><font color="green" id="campain_name_{{ campainid }}">{{campaininfo["Transaction"]}}</font></a>
+                           </td>
+                           <td>{{campaininfo["Date"]}}
+                            <input type="hidden" name="Date" id="Date_{{campainid}}" value="{{campaininfo['Date']}}">
+                           </td>
+                           <td>
+                               <div class="col-xs-6 col-sm-3">
+                                 €{{campaininfo["Montant"]}} EUR
+                                <input type="hidden" name="amount" id="amount_{{campainid}}" value="{{campaininfo['Montant']}}">
+                               </div> 
+                               <div class="col-xs-12 col-sm-6">
+                                 <font id="validity_{{ campainid }}" name="validity_for_{{campainid}}"></font>
+                               </div> 
+                               
+                           </td>
+                        </tr>
+                       {% endfor %}
+
+                    {% endif %}
+                       
+                        {% if MyCampainsList|length < itemPerPage %}
+                           {% for i in range(MyCampainsList|length, itemPerPage) %}
+                             <tr style="height: 42px;"> 
+                              <td><br></td>
+                              <td><br></td>
+                              <td><br></td>
+                             </tr>
+                            {% endfor %}
+                        {% endif %}
+
+
+                      </tbody>
+                    </table>

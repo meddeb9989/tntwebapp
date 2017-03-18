@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Add Page{% endblock %}
+
+{% block head %}
+  {{ super() }}
+      <style>
+          .centered-form {
+              margin-top: 40px;
+              margin-bottom: 50px;
+          }
+
+      </style>
+{% endblock %}
+   
+{% block content %}
+
+          {% with username=user.login, userid=user.id, search=False %}
+          {% include 'navebar.html' %}
+          {% endwith %}
+
+        <div class="row centered-form">
+          <div class="col-sm-6 col-md-5 col-lg-7 col-md-offset-2 col-lg-offset-2">
+                    <div class="form-group">
+                        <h3 class="panel-title text-center">Valider Ean13</h3><br>
+                    </div>
+                        <form name="form" method="post" action="" enctype="multipart/form-data">
+                            <div class="form-group">
+
+                              {% if ean13 %} 
+                               <input type="text" class="form-control" placeholder="EAN 13" name="ean13" value="{{ean13}}" required>
+                              {% else %}
+                               <input type="text" class="form-control" placeholder="EAN 13" name="ean13" required>
+                              {% endif %}
+
+                               {% if Errors %}
+                               {% if Errors.get('Ean13') %}
+                                   {% for mes in Errors.get('Ean13') %}
+                                       <font color="red">{{mes}} !</font><br>
+                                   {% endfor %}
+                               {% else %}
+                                 <br>  
+                               {% endif %}
+                               {% else %}
+                                 <br>    
+                               {% endif %}
+
+                               {% if ean13 %} 
+                               <div style="display:{{style}};">
+                                 <a href="/campain/details={{ean13}}"><font color="blue">Cliquez Ici pour Accéder à la Page de Détails</font></a>
+                               </div>
+                               {% endif %}
+                            </div>
+
+                          <div class="form-group">
+                              <div class="row">
+                                  <div class="col-xs-6 col-sm-4">
+                                     <br>
+                                  </div>
+                                  <div class="col-xs-6 col-sm-4">
+                                      <br>
+                                  </div>
+                                  <div class="col-xs-6 col-sm-4">
+                                     <button type="submit" name="btn" class="btn btn-success btn-block">
+                                        <span class="glyphicon glyphicon-saved"></span>&nbsp;&nbsp;Valider</button>
+                                  </div>
+                              </div>
+                          </div>
+                        </form>
+
+            </div>
+        </div>
+
+{% endblock %}

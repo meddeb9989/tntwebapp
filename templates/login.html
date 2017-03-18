@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Sign in Page{% endblock %}
+
+{% block content %}
+        <div class="row">
+            <div class="col-sm-6 col-md-5 col-lg-4 col-md-offset-2 col-lg-offset-4">
+              <h2 class="text-center form-signin-heading">Connectez-vous</h2><br>
+              <form method="post" action="">
+                 <input type="text" class="form-control" placeholder="Identifiant" onClick="document.getElementById('msg_id').innerHTML = '';" required name="login"><br>
+                 <input type="Password" class="form-control" placeholder="Mot de Passe" required name="passwd">
+                 {% if msg %}
+                 <font color="red" id="msg_id">{{msg}}</font><br>
+                 {% else %}
+                 <br>
+                 {% endif %}
+                 <br>
+                 <input type="submit" class="btn btn-lg btn-primary btn-block" value= "Connexion">
+              </form>
+            </div>
+        </div>
+{% endblock %}
+
+
+
