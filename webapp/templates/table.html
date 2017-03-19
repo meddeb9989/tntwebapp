@@ -10,7 +10,7 @@
                       <tr style="height: 72px;">
                        <td class="col-xs-2 col-sm-2 col-md-2">
                          <label style="height: 30px;">
-                          <input type="checkbox" name="btncheckAll" id="checkboxAll" onchange="javascript:visibilite(this.id); return false;" > Selectionner Tout
+                          <input type="checkbox" name="btncheckAll" id="checkboxAll" onchange="javascript:visibilite(this.id); return false;" > <font style="color:white;">Selectionner Tout</font>
                          </label>
                          <br><br>
                        </td>
@@ -58,12 +58,12 @@
                               </label>
                               <a size="18"><font color="green" id="campain_name_{{campaininfo['id']}}"><h8>{{campaininfo["Nom"]}}</h8></font></a>
                            </td>
-                           <td>{{campaininfo["Carte"]}}
+                           <td><font style="color:white;">{{campaininfo["Carte"]}}</font>
                             <input type="hidden" name="carte" id="carte_{{campaininfo['id']}}" value="{{campaininfo['Carte']}}">
                            </td>
                            <td>
                                <div class="col-xs-6 col-sm-3">
-                                 {{campaininfo["Date"]}}
+                                 <font style="color:white;">{{campaininfo["Date"]}}</font>
                                  <input type="hidden" name="Date" id="Date_{{campaininfo['id']}}" value="{{campaininfo['Date']}}">
                                </div> 
                                <div class="col-xs-6 col-sm-3">
@@ -114,13 +114,13 @@
                               &nbsp;
                               <a size="18"><font color="green" id="campain_name_{{ campainid }}"><h8>{{campaininfo["Transaction"]}}</h8></font></a>
                            </td>
-                           <td>{{campaininfo["Date"]}}
-                            <input type="hidden" name="Date" id="Date_{{campainid}}" value="{{campaininfo['Date']}}">
+                           <td><font style="color:white;">{{campaininfo["Date"]}}</font>
+                            <input type="hidden" name="Date" id="Date_{{campainid}}" value="{{campaininfo['Date']}}" style="color:white;">
                            </td>
                            <td>
                                <div class="col-xs-6 col-sm-3">
-                                 €{{campaininfo["Montant"]}} EUR
-                                <input type="hidden" name="amount" id="amount_{{campainid}}" value="{{campaininfo['Montant']}}">
+                                 <font style="color:white;">€{{campaininfo["Montant"]}} EUR</font>
+                                <input type="hidden" name="amount" id="amount_{{campainid}}" value="{{campaininfo['Montant']}}" style="color:white;">
                                </div> 
                                <div class="col-xs-12 col-sm-6">
                                  <font id="validity_{{ campainid }}" name="validity_for_{{campainid}}"></font>

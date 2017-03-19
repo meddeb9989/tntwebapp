@@ -22,7 +22,7 @@
         <div class="row centered-form">
           <div class="col-sm-6 col-md-5 col-lg-7 col-md-offset-2 col-lg-offset-2">
                     <div class="form-group">
-                        <h3 class="panel-title text-center">Ajouter Produit</h3><br>
+                        <h3 class="panel-title text-center" style="color:white;">Ajouter Produit</h3><br>
                     </div>
                         <form name="form" method="post" action="" id="myForm" enctype="multipart/form-data">
                          {% if fields %}
@@ -33,7 +33,7 @@
                                   {% if Errors %}
                                   {% if Errors.get('Ean13') %}
                                       {% for mes in Errors.get('Ean13') %}
-                                          <font color="red">{{mes}} !</font><br>
+                                          <font color="red">- {{mes}} !</font><br>
                                       {% endfor %}
                                   {% else %}
                                     <br>  

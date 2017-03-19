@@ -11,13 +11,14 @@
    <form method="post" action="">
       {% if campainList== [] %}
        <div class="container">
-         <h2>Voulez Vous Vraiment Supprimer {{campainName}} de la Liste ? </h2>
+         <h2 style="color:white;">Voulez Vous Vraiment Opposer :{{campainName}} </h2>
+         <h5 style="color:white;"> - {{campainName}}</h5>
        </div>
       {% else %}
          <div class="container">
-           <h2>Voulez Vous Vraiment Opposer : </h2>
+           <h2 style="color:white;">Voulez Vous Vraiment Opposer : </h2>
             {% for name in campainList %}
-              <h5> - {{name}}</h5>
+              <h5 style="color:white;"> - {{name}}</h5>
             {% endfor %}
          </div>
        {% endif %}  
