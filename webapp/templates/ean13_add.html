@@ -42,19 +42,13 @@
                           <div class="form-group">
                               <div class="row">
                                   <div class="col-xs-6 col-sm-4">
-                                    <input type="number" class="form-control" placeholder="Montant de la Recharge" name="amount" required maxlength=4 max=9999 min=1>
 
-                               {% if Errors %}
-                               {% if Errors.get('Ean13') %}
-                                   {% for mes in Errors.get('Ean13') %}
-                                       <font color="red">{{mes}} !</font><br>
-                                   {% endfor %}
-                               {% else %}
-                                 <br>  
-                               {% endif %}
-                               {% else %}
-                                 <br>    
-                               {% endif %}
+                              {% if ean13 %} 
+                               <input type="number" class="form-control" placeholder="Montant de la Recharge" name="amount"  value="{{ean13}}" required maxlength=4 max=9999 min=1>
+                              {% else %}
+                               <input type="number" class="form-control" placeholder="Montant de la Recharge" name="amount" required maxlength=4 max=9999 min=1>
+                              {% endif %}
+                                    
 
                                   </div>
                                   <div class="col-xs-6 col-sm-4">
@@ -66,6 +60,13 @@
                                   </div>
                               </div>
                           </div>
+                           {% if Errors %}
+                              {% for mes in Errors %}
+                                 <font color="red"> - {{mes['Error']}} !</font><br>
+                              {% endfor %}
+                            {% else %}
+                              <br>    
+                            {% endif %}
                         </form>
 
             </div>

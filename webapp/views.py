@@ -14,7 +14,7 @@ from user import User
 import json
 from requests.auth import HTTPDigestAuth
 
-app.website_url="https://tntwebserver.herokuapp.com/"
+app.website_url="http://127.0.0.1:8000/"
 app.token=None
 
 @app.route('/')
@@ -449,16 +449,46 @@ def confirm_recharge(ids):
         if user['valid']:
             rechargeList = ids.split(";")
             amount = request.form['amount']
+            Errors = []
             if "" in rechargeList:
                 rechargeList.remove("")
             if len(rechargeList) == 1:
                 url=app.website_url+"recharge_card/"+str(rechargeList[0])+"/"+amount
                 r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                card = json.loads(r.text)
+                if card[0]['valid']:
+                    response = redirect("/home/")
+                else:
+                    Errors.append(card[0])
+                    response = render_template("ean13_add.html",
+                                                   Errors=Errors,
+                                                   usertype=user['type'],
+                                                   user=user['name'],
+                                                   userid=user['id'],
+                                                   ean13=amount,
+                                                   style="")
+
             else:
+                Errors = []
                 for ids in rechargeList:
                     url=app.website_url+"recharge_card/"+str(ids)+"/"+amount
                     r=requests.get(url, headers={'Authorization': 'Token '+app.token})
-        response = redirect("/home/")
+                    card = json.loads(r.text)
+                    if card[0]['valid']:
+                        pass
+                    else:
+                        Errors.append(card[0])
+                if Errors == []:
+                    response = redirect("/home/")
+                else:
+                    response = render_template("ean13_add.html",
+                                                   Errors=Errors,
+                                                   usertype=user['type'],
+                                                   user=user['name'],
+                                                   userid=user['id'],
+                                                   ean13=amount,
+                                                   style="")
+        
     else:
         response = redirect("/")
 
