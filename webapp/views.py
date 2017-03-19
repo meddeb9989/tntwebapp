@@ -295,8 +295,11 @@ def my_home_page(page, validation, search_text, user_type):
               url=app.website_url+"bloc_card/"
               r=requests.get(url, headers={'Authorization': 'Token '+app.token})
               response = redirect("/home/")
-        elif request.form['btn'] == 'blocked':
-            response = redirect("/home/")
+        elif request.form['btn'] == 'locked':
+            if user_type!="":
+                response = redirect("/home/user_type="+user_type)
+            else:
+                response = redirect("/home/")
         elif request.form['btn'].startswith("bloc"):
             if s == "":
                 s = request.form['btn'].split("_")[1]+";"
