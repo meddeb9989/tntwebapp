@@ -16,35 +16,26 @@
                        </td>
                       {% else %}
                        <tr style="height: 72px;">
-                       <td class="col-xs-2 col-sm-2 col-md-2">
+                       <td class="">
                            <br><br>
                        </td>
                       {% endif %}
-                       <td class="col-xs-2 col-sm-2 col-md-2">
-                        <div id="id_show_valid_check" style="display:'';">
-                            <br><br>
-                        </div>
-                        <div id="id_compare_btn" style="display:none;">
-                            <br><br>
-                        </div>
+                       <td class="">
+
+                        <div class="" id="id_export_btn" style="display:none;">
+                           <button class="btn btn-block btn-primary" type="submit" name="btn" value="recharge_All" style="width: 100px;"><span class=""></span> € Recharger </button>
+                           
+                          </div> 
+                          <br>
                        </td>
                           
-                       <td calss="col-xs-6 col-sm-6 col-md-6">
-                        <div id="id_show_invalid_check" style="display:'';">
-                          <div class="col-xs-4 col-sm-4 col-md-4" >
-                            <br><br>
-                          </div>
-                          <div class="col-xs-4 col-sm-4 col-md-4">
-                              <br><br>
-                          </div>
-                        </div>
-                          <div class="col-xs-4 col-sm-4 col-md-4" id="id_export_btn" style="display:none;">
-                           <button class="btn btn-block btn-primary" type="submit" name="btn" value="recharge_All"><span class="glyphicon glyphicon-euro"></span> Recharger </button>
-                          </div> 
-                          <div class="col-xs-4 col-sm-4 col-md-4" id="id_delete_btn" style="display:none;">
-                            <button class="btn btn-block btn-danger" type="submit" name="btn" value="bloc_All"><span class="glyphicon glyphicon-trash"></span> Déclarer </button>
-                          </div> 
+                       <td calss="">
 
+                          <div class="" id="id_delete_btn" style="display:none;">
+                            <button class="btn btn-block btn-danger" type="submit" name="btn" value="bloc_All" style="width: 100px;"><span class="glyphicon glyphicon-trash"></span> Déclarer </button>
+
+                          </div> 
+                           <br>
                        </td>
                           
                       </tr>
@@ -91,13 +82,6 @@
                         </tr>
                        {% endfor %}
 
-                      <tr style="height: 42px;"> 
-                              <td><br></td>
-                              <td><br></td>
-                              <td><br></td>
-                              <td><br></td>
-                              <td><br></td>
-                        </tr>
                         {% if MyCampainsList|length < itemPerPage %}
                            {% for i in range(MyCampainsList|length, itemPerPage) %}
                              <tr style="height: 42px;"> 

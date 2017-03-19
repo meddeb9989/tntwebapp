@@ -18,10 +18,7 @@
          {
             var thisCheck = document.getElementById(thisId);
             var Export_All_btn = document.getElementById("id_export_btn");
-            var Compare_All_btn = document.getElementById("id_compare_btn");
             var Delete_All_btn = document.getElementById("id_delete_btn");
-            var Show_Valid = document.getElementById("id_show_valid_check");
-            var Show_inValid = document.getElementById("id_show_invalid_check");
             var all = document.getElementsByTagName("*");
 
         if ( thisId == "checkboxAll") {
@@ -44,17 +41,11 @@
                 k=count_checked(all);
                 if(k==2){
                   Export_All_btn.style.display = "" ;
-                  Compare_All_btn.style.display = "none" ;
                   Delete_All_btn.style.display = "" ;
-                  Show_Valid.style.display = "none" ;
-                  Show_inValid.style.display = "none" ;
                 } 
                 else{
                   Export_All_btn.style.display = "" ;
-                  Compare_All_btn.style.display = "none" ;
                   Delete_All_btn.style.display = "" ;
-                  Show_Valid.style.display = "none" ;
-                  Show_inValid.style.display = "none" ;
                 } 
                  
                 }
@@ -74,30 +65,9 @@
                       }
                   }
                 Export_All_btn.style.display = "none" ;
-                Compare_All_btn.style.display = "none" ;
                 Delete_All_btn.style.display = "none" ;
-                Show_Valid.style.display = "" ;
-                Show_inValid.style.display = "" ;
               }
             }
-        else if ( thisId == "show_Valid")
-              {
-               document.getElementById("show_inValid").checked=false;
-               document.getElementById("show_Coming").checked=false;
-               document.getElementById("myForm").submit();
-              }
-        else if ( thisId == "show_inValid") 
-              {
-               document.getElementById("show_Valid").checked=false;
-               document.getElementById("show_Coming").checked=false;
-               document.getElementById("myForm").submit();
-              }
-        else if ( thisId == "show_Coming")
-              {
-               document.getElementById("show_Valid").checked=false;
-               document.getElementById("show_inValid").checked=false;
-               document.getElementById("myForm").submit();
-              }
         else 
            {
                   document.getElementById("checkboxAll").checked=false;
@@ -114,10 +84,7 @@
                                           }
                                   }
                                Export_All_btn.style.display = "" ; 
-                               Compare_All_btn.style.display = "none" ;
                                Delete_All_btn.style.display = "" ;
-                               Show_Valid.style.display = "none" ;
-                               Show_inValid.style.display = "none" ;
                             }
                   else if (k==2) 
                             {
@@ -131,10 +98,7 @@
                                           }
                                   }
                                Export_All_btn.style.display = "" ; 
-                               Compare_All_btn.style.display = "none" ;
                                Delete_All_btn.style.display = "" ;
-                               Show_Valid.style.display = "none" ;
-                               Show_inValid.style.display = "none" ;
                             }
                   else 
                            {  
@@ -187,10 +151,7 @@
                                   }    
 
                               Export_All_btn.style.display = "none" ;
-                              Compare_All_btn.style.display = "none" ;
                               Delete_All_btn.style.display = "none" ;
-                              Show_Valid.style.display = "" ;
-                              Show_inValid.style.display = "" ;
                              }
                  }
        }

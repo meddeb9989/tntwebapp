@@ -50,18 +50,17 @@
                   {% endif %}
                    
                 </div>
-                <div class="col-lg-1">
-                    <br>
-                </div>
+
                 <div class="col-lg-2 col-xs-6 col-sm-4">
                   <br>
                   {% if usertype == "Employeur" %}
                   <button class="btn btn-block btn-success" type="submit" name="btn" value="add" style="margin-top: 8px;"><span class="glyphicon glyphicon-plus"></span> Ajouter Employé </button>
+
                   {% elif usertype == "Employe" %}
                       {% if card_state == True %}
                         <button class="btn btn-block btn-danger" type="submit" name="btn" value="bloc" style="margin-top: 8px;"><span class="glyphicon glyphicon-trash"></span> Opposition Carte</button>
                       {% else%}
-                        <button class="btn btn-disabled btn-block" name="btn" href="/home/" value="locked" style="margin-top: 8px;"><span class="glyphicon glyphicon-remove"></span>Carte Opposée</button>
+                        <button class="btn btn-disabled btn-block disabled" name="btn" href="/home/" value="locked" style="margin-top: 8px;" disabled="disabled"><span class="glyphicon glyphicon-remove"></span>Carte Opposée</button>
                       {% endif %}
                   {% endif %}
                   
