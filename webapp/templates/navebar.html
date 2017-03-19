@@ -14,12 +14,12 @@
           <ul class="nav navbar-nav navbar-right">
 
             {% if solde %}
-              <li><a href="/home/">€{{ solde }} EUR</a></li>
+              <li><a href="/profile/">€{{ solde }} EUR</a></li>
             {% else %}
               <li><a href="/home/"></a></li>
             {% endif %}
             
-            <li><a href="/profile/"  id="usertype_{{usertype}}" value="{{usertype}}" >{{ username }}</a></li>
+            <li><a href="/home/"  id="usertype_{{usertype}}" value="{{usertype}}" >{{ username }}</a></li>
             <li><a href="/signout/"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>
 
           </ul>

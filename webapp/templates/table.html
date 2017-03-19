@@ -22,31 +22,27 @@
                       {% endif %}
                        <td class="col-xs-2 col-sm-2 col-md-2">
                         <div id="id_show_valid_check" style="display:'';">
-                           <label style="height: 30px;">
-                            <input type="checkbox" name="btnShowValid" id="show_Valid" onchange="javascript:visibilite(this.id); return false;"  {{valid}}> Afficher Valides
-                           </label>
+                            <br><br>
                         </div>
                         <div id="id_compare_btn" style="display:none;">
-                            <button class="btn btn-block btn-info" type="submit" name="btn" value="compareAll"><span class="glyphicon glyphicon-stats"> Comparer</button>
+                            <br><br>
                         </div>
                        </td>
                           
                        <td calss="col-xs-6 col-sm-6 col-md-6">
                         <div id="id_show_invalid_check" style="display:'';">
                           <div class="col-xs-4 col-sm-4 col-md-4" >
-                           <label style="height: 30px;">
-                            <input type="checkbox" name="btnShowinValid" id="show_inValid" onchange="javascript:visibilite(this.id); return false;" {{invalid}}> Afficher Invalides
-                           </label>
+                            <br><br>
                           </div>
                           <div class="col-xs-4 col-sm-4 col-md-4">
                               <br><br>
                           </div>
                         </div>
                           <div class="col-xs-4 col-sm-4 col-md-4" id="id_export_btn" style="display:none;">
-                           <button class="btn btn-block btn-primary" type="submit" name="btn" value="exportCSVAll"><span class="glyphicon glyphicon-euro"></span> Recharger </button>
+                           <button class="btn btn-block btn-primary" type="submit" name="btn" value="recharge_All"><span class="glyphicon glyphicon-euro"></span> Recharger </button>
                           </div> 
                           <div class="col-xs-4 col-sm-4 col-md-4" id="id_delete_btn" style="display:none;">
-                            <button class="btn btn-block btn-danger" type="submit" name="btn" value="deleteAll"><span class="glyphicon glyphicon-trash"></span> Déclarer </button>
+                            <button class="btn btn-block btn-danger" type="submit" name="btn" value="bloc_All"><span class="glyphicon glyphicon-trash"></span> Déclarer </button>
                           </div> 
 
                        </td>
@@ -58,27 +54,35 @@
                        <tr style="height: 42px;">                      
                            <td style="width:25%;">
                               <label>
-                                 <input type="checkbox" name="checkfor_{{campainid}}" onchange="javascript:visibilite(this.id); return false;" id="checkbox_{{ campainid }}">
+                                 <input type="checkbox" name="checkfor_{{campaininfo['id']}}" onchange="javascript:visibilite(this.id); return false;" id="checkbox_{{campaininfo['id']}}">
                               </label>
-                              <a href="/campain/details={{ campainid }}" size="18"><font color="green" id="campain_name_{{ campainid }}">{{campaininfo["Nom"]}}</font></a>
+                              <a href="/campain/details={{campaininfo['id']}}" size="18"><font color="green" id="campain_name_{{campaininfo['id']}}">{{campaininfo["Nom"]}}</font></a>
                            </td>
                            <td>{{campaininfo["Carte"]}}
-                            <input type="hidden" name="carte" id="carte_{{campainid}}" value="{{campaininfo['Carte']}}">
+                            <input type="hidden" name="carte" id="carte_{{campaininfo['id']}}" value="{{campaininfo['Carte']}}">
                            </td>
                            <td>
                                <div class="col-xs-6 col-sm-3">
                                  {{campaininfo["Date"]}}
-                                 <input type="hidden" name="Date" id="Date_{{campainid}}" value="{{campaininfo['Date']}}">
+                                 <input type="hidden" name="Date" id="Date_{{campaininfo['id']}}" value="{{campaininfo['Date']}}">
                                </div> 
                                <div class="col-xs-6 col-sm-3">
-                                 <font id="validity_{{ campainid }}" name="validity_for_{{campainid}}"></font>
+                                 <font id="validity_{{campaininfo['id']}}" name="validity_for_{{campaininfo['id']}}"></font>
                                </div> 
-                               <div class="col-xs-6 col-sm-3" id="export_{{ campainid }}" style="display:'';">
-                                 <button class="btn btn-xs btn-primary" type="submit" name="btn" value="recharge_{{ campainid }}"><span class="glyphicon glyphicon-euro"></span> Recharger </button>
+                               <div class="col-xs-6 col-sm-3" id="recharge_{{campaininfo['id']}}" style="display:'';">
+                                 <button class="btn btn-xs btn-primary" type="submit" name="btn" value="recharge_{{campaininfo['id']}}"><span class="glyphicon glyphicon-euro"></span> Recharger </button>
                                </div> 
-                               <div class="col-xs-6 col-sm-3" id="delete_{{ campainid }}" style="display:'';">
-                                <button class="btn btn-xs btn-danger" type="submit" name="btn" value="delete_{{ campainid }}"><span class="glyphicon glyphicon-trash"></span> Déclarer  </button>
-                               </div> 
+                                
+                                {% if campaininfo["valid_card"] == True %}
+                                  <div class="col-xs-6 col-sm-3" id="bloc_{{campaininfo['id']}}" style="display:'';">
+                                      <button class="btn btn-xs btn-danger" type="submit" name="btn" value="bloc_{{campaininfo['id']}}"><span class="glyphicon glyphicon-trash"></span> Déclarer  </button>
+                                  </div> 
+                                {% else %}
+                                  <div class="col-xs-6 col-sm-3" id="bloc_{{campaininfo['id']}}" style="display:'';">
+                                      <button class="btn btn-xs btn-disabled" type="submit" name="btn" value="locked_{{campaininfo['id']}}"><span class="glyphicon glyphicon-remove"></span> Opposée </button>
+                                  </div> 
+                                {% endif %}
+                               
                            </td>
                         </tr>
                        {% endfor %}

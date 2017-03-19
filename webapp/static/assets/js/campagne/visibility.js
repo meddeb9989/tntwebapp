@@ -32,11 +32,11 @@
                       {
                         all[i].checked = true;
                        }
-                   else if (all[i].id.substring(0, 7) == "export_") 
+                   else if (all[i].id.substring(0, 7) == "recharge_") 
                       {
                         all[i].style.display = "none";
                       }
-                   else if (all[i].id.substring(0, 7) == "delete_") 
+                   else if (all[i].id.substring(0, 7) == "bloc_") 
                       {
                        all[i].style.display = "none";
                       }
@@ -64,11 +64,11 @@
                        {
                         all[i].checked = false;
                        }
-                    else if (all[i].id.substring(0, 7) == "export_") 
+                    else if (all[i].id.substring(0, 7) == "recharge_") 
                       {
                         all[i].style.display = "";
                       }
-                   else if (all[i].id.substring(0, 7) == "delete_") 
+                   else if (all[i].id.substring(0, 7) == "bloc_") 
                       {
                        all[i].style.display = "";
                       }
@@ -109,11 +109,11 @@
                                      if (all[i].id.substring(0, 9) == "checkbox_") 
                                          {
                                              id_num = all[i].id.substring(9);
-                                             document.getElementById("export_"+id_num).style.display = "none";
-                                             document.getElementById("delete_"+id_num).style.display = "none";  
+                                             document.getElementById("recharge_"+id_num).style.display = "none";
+                                             document.getElementById("bloc_"+id_num).style.display = "none";  
                                           }
                                   }
-                               Export_All_btn.style.display = "none" ; 
+                               Export_All_btn.style.display = "" ; 
                                Compare_All_btn.style.display = "none" ;
                                Delete_All_btn.style.display = "" ;
                                Show_Valid.style.display = "none" ;
@@ -126,11 +126,11 @@
                                      if (all[i].id.substring(0, 9) == "checkbox_") 
                                          {
                                              id_num = all[i].id.substring(9);
-                                             document.getElementById("export_"+id_num).style.display = "none";
-                                             document.getElementById("delete_"+id_num).style.display = "none";  
+                                             document.getElementById("recharge_"+id_num).style.display = "none";
+                                             document.getElementById("bloc_"+id_num).style.display = "none";  
                                           }
                                   }
-                               Export_All_btn.style.display = "none" ; 
+                               Export_All_btn.style.display = "" ; 
                                Compare_All_btn.style.display = "none" ;
                                Delete_All_btn.style.display = "" ;
                                Show_Valid.style.display = "none" ;
@@ -145,13 +145,13 @@
                                          if (all[i].id.substring(0, 9) == "checkbox_") 
                                              {  
                                                  id_num = all[i].id.substring(9);
-                                                 document.getElementById("export_"+id_num).style.display = "none";
-                                                 document.getElementById("delete_"+id_num).style.display = "none"; 
+                                                 document.getElementById("recharge_"+id_num).style.display = "none";
+                                                 document.getElementById("bloc_"+id_num).style.display = "none"; 
                                               }
                                       }
                                     id_num = thisId.substring(9);
-                                    document.getElementById("export_"+id_num).style.display = "";
-                                    document.getElementById("delete_"+id_num).style.display = ""; 
+                                    document.getElementById("recharge_"+id_num).style.display = "";
+                                    document.getElementById("bloc_"+id_num).style.display = ""; 
 
                                   }
 
@@ -166,19 +166,19 @@
                                                   {
                                                     if (all[i].checked)
                                                       {
-                                                        document.getElementById("export_"+id_num).style.display = "";
-                                                         document.getElementById("delete_"+id_num).style.display = "";  
+                                                        document.getElementById("recharge_"+id_num).style.display = "";
+                                                         document.getElementById("bloc_"+id_num).style.display = "";  
                                                       }
                                                     else 
                                                       {
-                                                         document.getElementById("export_"+id_num).style.display = "none";
-                                                         document.getElementById("delete_"+id_num).style.display = "none"; 
+                                                         document.getElementById("recharge_"+id_num).style.display = "none";
+                                                         document.getElementById("bloc_"+id_num).style.display = "none"; 
                                                       }
                                                   }
                                                else
                                                   {
-                                                    document.getElementById("export_"+id_num).style.display = "";
-                                                    document.getElementById("delete_"+id_num).style.display = "";  
+                                                    document.getElementById("recharge_"+id_num).style.display = "";
+                                                    document.getElementById("bloc_"+id_num).style.display = "";  
                                                   }  
                                                  
 

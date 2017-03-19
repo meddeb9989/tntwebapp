@@ -40,7 +40,6 @@ def signin():
             r=requests.get(url, headers={'Authorization': 'Token '+app.token})
             user=json.loads(r.text)[0]
             if user['valid']:
-              print user
               if u'&' in user['group']:
                   response = redirect("/view_choice/")
               else:
@@ -57,6 +56,24 @@ def view_choice():
         response = redirect(index_search)
     else:
         response = redirect("/")
+
+    return response
+
+@app.route('/add_employe/', methods=['GET', 'POST'])
+def add_Employe():
+    if request.method == 'GET' and app.token!=None:
+        url=app.website_url+"user/"
+        r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+        user=json.loads(r.text)[0]
+        if user['valid']:
+            username = user['name']
+            response = render_template("add_employe.html")
+        else:
+            response = redirect("/signout/")
+    elif request.method == 'POST' and app.token!=None:
+      pass
+    else:
+        response = redirect("/signout/")
 
     return response
 
@@ -99,7 +116,6 @@ def my_home_page(page, validation, search_text, user_type):
         r=requests.get(url, headers={'Authorization': 'Token '+app.token})
         user=json.loads(r.text)[0]
         if user['valid']:
-
             if search_text == "" and validation == "" and user_type == "":
                 pagination_for = "/home/page"
             elif search_text == "" and user_type == "":
@@ -114,7 +130,7 @@ def my_home_page(page, validation, search_text, user_type):
                 pagination_for = "/home/user_type="+user_type+"_search_text="+search_text+"_validation="+validation+"_page"
 
             if u'&' in user['group']:
-                if user_type!="" and user_type == "Employeur":
+                if user_type == "Employeur":
                     url=app.website_url+"rh_cards/"
                     r=requests.get(url, headers={'Authorization': 'Token '+app.token})
                     cartes=json.loads(r.text)
@@ -138,7 +154,7 @@ def my_home_page(page, validation, search_text, user_type):
                                                pagination_for=pagination_for,
                                                itemPerPage = paginate.itemPerPage)
 
-                elif user_type!="" and user_type == "Employe":
+                elif user_type == "Employe":
                     url=app.website_url+"transactions/"
                     r=requests.get(url, headers={'Authorization': 'Token '+app.token})
                     transactions=json.loads(r.text)
@@ -204,6 +220,10 @@ def my_home_page(page, validation, search_text, user_type):
                 r=requests.get(url, headers={'Authorization': 'Token '+app.token})
                 solde=json.loads(r.text)[0]['amount']
 
+                url=app.website_url+"card_state/"
+                r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                card_state=json.loads(r.text)[0]['valid']
+
                 paginate = Paginate(5)
                 Mylist, pages = paginate.getListAndPages(transactions, page, search_text)
 
@@ -215,6 +235,7 @@ def my_home_page(page, validation, search_text, user_type):
                                            user=user['name'],
                                            userid=user['id'],
                                            solde=solde,
+                                           card_state=card_state,
                                            currentPage=page,
                                            numberOfPages=pages,
                                            validation=validation,
@@ -250,6 +271,15 @@ def my_home_page(page, validation, search_text, user_type):
         else:
             response = redirect("/signout/")
     elif request.method == 'POST' and app.token!=None:
+        url=app.website_url+"user/"
+        r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+        user=json.loads(r.text)[0]
+
+        s = ""
+        for key in request.form:
+            if key.startswith("checkfor"):
+                s += key.split("_")[1]+";"
+
         if request.form['btn'] == 'search':
             search_text = request.form["search_text"]
             if search_text == "":
@@ -257,142 +287,182 @@ def my_home_page(page, validation, search_text, user_type):
             else:
                 index_search = "/home/search_text=" + search_text
                 response = redirect(index_search)
-#                        if validation == "":
-#                            response = redirect(index_search)
-#                        elif validation == "valid":
-#                            response = redirect(index_search+"_validation=valid")
-#                        elif validation == "invalid":
-#                            response = redirect(index_search+"_validation=invalid")
-#                        elif validation == "coming":
-#                            response = redirect(index_search+"_validation=coming")
-#
-#                elif request.form['btn'].startswith("delete"):
-#                    if s == "":
-#                        s = request.form['btn'].split("_")[1]+";"
-#                        response = redirect("/campain/delete="+s)
-#
-#                    else:
-#                        response = redirect("/campain/delete="+s)
-#
-#                elif request.form['btn'].startswith("exportCSV"):
-#                    if s == "":
-#                        s = request.form['btn'].split("_")[1]+";"
-#                        response = redirect("/campain/exportCSV="+s)
-#
-#                    else:
-#                        response = redirect("/campain/exportCSV="+s)
-#
-#                elif request.form['btn'].startswith("compare"):
-#                    if s == "":
-#                        s = request.form['btn'].split("_")[1]+";"
-#                        response = redirect("/campain/stats="+s)
-#
-#                    else:
-#                        response = redirect("/campain/stats="+s)
-#
-#                else:
-#                    response = redirect("/signout/")
-#
-#            elif "btnShowValid" in request.form:
-#                if search_text == "":
-#                    response = redirect("/home/validation=valid")
-#                else:
-#                    response = redirect("/home/search_text="+search_text+"_validation=valid")
-#
-#            elif "btnShowinValid" in request.form:
-#                if search_text == "":
-#                    response = redirect("/home/validation=invalid")
-#                else:
-#                    response = redirect("/home/search_text="+search_text+"_validation=invalid")
-#
-#            elif "btnShowComing" in request.form:
-#                if search_text == "":
-#                    response = redirect("/home/validation=coming")
-#                else:
-#                    response = redirect("/home/search_text="+search_text+"_validation=coming")
-#
-#            else:
-#                if search_text == "":
-#                    response = redirect("/home/")
-#                else:
-#                    response = redirect("/home/search_text="+search_text)
-#        response = redirect("/home/")
+
+        elif request.form['btn'] == 'add':
+            response = redirect("/add_employe/")
+        elif request.form['btn'] == 'bloc':
+          if user['valid'] and user['group']==u'Employe':
+              url=app.website_url+"bloc_card/"
+              r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+              response = redirect("/home/")
+        elif request.form['btn'] == 'blocked':
+            response = redirect("/home/")
+        elif request.form['btn'].startswith("bloc"):
+            if s == "":
+                s = request.form['btn'].split("_")[1]+";"
+                response = redirect("/confirm_bloc="+s)
+
+            else:
+                response = redirect("/confirm_bloc="+s)
+
+        elif request.form['btn'].startswith("recharge"):
+            if s == "":
+                s = request.form['btn'].split("_")[1]+";"
+                response = redirect("/confirm_recharge="+s)
+
+            else:
+                response = redirect("/confirm_recharge="+s)
+        else:
+            if user_type!="":
+                response = redirect("/home/user_type="+user_type)
+            else:
+                response = redirect("/home/")
+
     else:
         response = redirect("/")
     return response
 
-@app.route('/product/add', methods=['GET', 'POST'])
-def add_Product():
-    logged, response = login_campain.login_test(session_manager)
-    cat_manager = CategoryManager()
-    first_category_list = cat_manager.get_first_category_list()
-    if request.method == 'GET':
-        if logged:
-            first_category = {}
-            user = user_manager.get_user_by_ID(int(session_manager.get_session_user_id()))
-            response = render_template("add_product.html", user=user, category_list=first_category_list, display="none")
-    else:
-        if logged:
-            fields = {}
-            fields["ean13"] = str(request.form['ean13'])
-            fields["product_name"] = str(request.form['product_name'])
-            fields["trade_mark"] = str(request.form['trade_mark'])
-            fields["price"] = str(request.form['price'])
-            fields["description"] = str(request.form['description'])
-            fields["rayon"] = str(request.form['rayon'])
-            fields["mdd"] = str(request.form['mdd'])
-            fields["category_id"] = str(request.form['category_id'])
+@app.route('/confirm_bloc=<ids>', methods=['GET', 'POST'])
+def confirm_bloc(ids):
+    if request.method == 'GET' and app.token!=None:
+        url=app.website_url+"user/"
+        r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+        user=json.loads(r.text)[0]
 
-            user = user_manager.get_user_by_ID(int(session_manager.get_session_user_id()))
+        if user['valid']:
+            deleteList = ids.split(";")
+            nameList = []
+            if "" in deleteList:
+                deleteList.remove("")
+            name = ""
 
-            Errors = {}
-
-            if "btn" in request.form:
-
-                if "check" in request.form:
-                    if "file_trademark" in request.files:
-                        file_video_trademark = request.files['file_trademark']
-                    if "file_demo" in request.files:
-                        file_video_demo = request.files['file_trademark']
-                    if "file_image" in request.files:
-                        file_image = request.files['file_image']
-
+            if len(deleteList) == 1:
+                url=app.website_url+"get_card/"+str(deleteList[0])
+                r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                card=json.loads(r.text)
+                if card[0]['valid']:
+                    name = u"La Carte Numéro: "+card[1]['Carte']+u", Propriétaire: "+card[1]['Nom']
+                    response = render_template("delete.html",
+                                               usertype=user['type'],
+                                               user=user['name'],
+                                               userid=user['id'],
+                                               campainName=name,
+                                               campainList=nameList)
+                else:
+                    response = redirect("/")
             else:
-                category_list = cat_manager.get_category_list_by_id(int(fields["category_id"]))
-                response = render_template("add_product.html", user=user, category_list=category_list, display="none")
+                for ids in deleteList:
+                    url=app.website_url+"get_card/"+str(ids)
+                    r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                    card=json.loads(r.text)
+                    print card
+                    if card[0]['valid']:
+                        name = u"La Carte Numéro: "+card[1]['Carte']+u", Propriétaire: "+card[1]['Nom']
+                        nameList.append(name)
 
-#
-#            validatefields = ValidateFields(fields)
-#            Errors = validatefields.Validate()
-#
-#            if len(Errors) == 0:
-#                Errors = crud.bind(fields["ean13"],
-#                                   Errors,
-#                                   fields["old_price"],
-#                                   fields["new_price"],
-#                                   fields["description"],
-#                                   fields["begin_date"],
-#                                   fields["end_date"],
-#                                   fields["Path"])
-#
-#                if len(Errors) == 0:
-#                    response = redirect("/")
-#                else:
-#                    response = render_template("add.html",
-#                                               Errors=Errors,
-#                                               user=user,
-#                                               fields=fields,
-#                                               display="")
-#            else:
-#                print Errors
-#                response = render_template("add.html",
-#                                           Errors=Errors,
-#                                           user=user,
-#                                           fields=fields,
-#                                           display="")
+                response = render_template("delete.html",
+                                           usertype=user['type'],
+                                           user=user['name'],
+                                           userid=user['id'],
+                                           campainName=name,
+                                           campainList=nameList)
+                
+        else:
+            response = redirect("/")
+
+    elif request.method == 'POST' and app.token!=None:
+        url=app.website_url+"user/"
+        r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+        user=json.loads(r.text)[0]
+
+        if user['valid']:
+            if request.form['btn'] == "doDelete":
+                deleteList = ids.split(";")
+                if "" in deleteList:
+                    deleteList.remove("")
+                if len(deleteList) == 1:
+                    url=app.website_url+"bloc_card_id/"+str(deleteList[0])
+                    r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                else:
+                    for ids in deleteList:
+                        url=app.website_url+"bloc_card_id/"+str(ids)
+                        r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+        response = redirect("/home/")
+    else:
+        response = redirect("/")
 
     return response
 
+
+
+@app.route('/confirm_recharge=<ids>', methods=['GET', 'POST'])
+def confirm_recharge(ids):
+    if request.method == 'GET' and app.token!=None:
+        url=app.website_url+"user/"
+        r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+        user=json.loads(r.text)[0]
+        if user['valid']:
+            rechargeList = ids.split(";")
+            nameList = []
+            if "" in rechargeList:
+                rechargeList.remove("")
+            name = ""
+            if len(rechargeList) == 1:
+                url=app.website_url+"get_card/"+str(rechargeList[0])
+                r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                card=json.loads(r.text)
+
+                if card[0]['valid']:
+                    name = u"La Carte Numéro: "+card[1]['Carte']+u", Propriétaire: "+card[1]['Nom']
+                    response = render_template("ean13_add.html",
+                                               usertype=user['type'],
+                                               user=user['name'],
+                                               userid=user['id'],
+                                               campainName=name,
+                                               campainList=nameList)
+                else:
+                    response = redirect("/")
+            else:
+                for ids in rechargeList:
+                    url=app.website_url+"get_card/"+str(ids)
+                    r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                    card=json.loads(r.text)
+                    print card
+                    if card[0]['valid']:
+                        name = u"La Carte Numéro: "+card[1]['Carte']+u", Propriétaire: "+card[1]['Nom']
+                        nameList.append(name)
+
+                response = render_template("ean13_add.html",
+                                           usertype=user['type'],
+                                           user=user['name'],
+                                           userid=user['id'],
+                                           campainName=name,
+                                           campainList=nameList)
+
+        else:
+            response = redirect("/signout/")
+    elif request.method == 'POST' and app.token!=None:
+        url=app.website_url+"user/"
+        r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+        user=json.loads(r.text)[0]
+
+        if user['valid']:
+            rechargeList = ids.split(";")
+            amount = request.form['amount']
+            if "" in rechargeList:
+                rechargeList.remove("")
+            if len(rechargeList) == 1:
+                url=app.website_url+"recharge_card/"+str(rechargeList[0])+"/"+amount
+                r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+            else:
+                for ids in rechargeList:
+                    url=app.website_url+"recharge_card/"+str(ids)+"/"+amount
+                    r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+        response = redirect("/home/")
+    else:
+        response = redirect("/")
+
+    return response
 
 @app.route('/campain/add/ean13', methods=['GET', 'POST'])
 def detect_ean13():
@@ -443,87 +513,5 @@ def detect_ean13():
                                            ean13=ean13,
                                            style="none",
                                            fields=fields)
-
-    return response
-
-
-@app.route('/campain/add/ean13=<ean13>', methods=['GET', 'POST'])
-def add_Campain(ean13):
-    logged, response = login_campain.login_test(session_manager)
-    price = str(crud.get_price_by_ean13(ean13))
-    if request.method == 'GET':
-        if logged:
-            user = user_manager.get_user_by_ID(int(session_manager.get_session_user_id()))
-            response = render_template("add.html", user=user, ean13=ean13, price=price, display="none")
-    else:
-        if logged:
-            fields = {}
-            fields["ean13"] = ean13
-            fields["begin_date"] = str(request.form['begin_date'])
-            fields["old_price"] = price
-            fields["new_price"] = str(request.form['new_price'])
-            fields["description"] = str(request.form['description'])
-            fields["end_date"] = str(request.form['end_date'])
-
-            user = user_manager.get_user_by_ID(int(session_manager.get_session_user_id()))
-
-            Errors = {}
-
-            if "check" in request.form:
-                if "file" in request.files:
-                    file = request.files['file']
-                    fields["Path"] = file
-                    fields["NoPath"] = False
-                else:
-                    fields["Path"] = ""
-                    fields["NoPath"] = True
-            else:
-                fields["Path"] = ""
-                fields["NoPath"] = True
-
-            validatefields = ValidateFields(fields)
-            Errors = validatefields.Validate()
-
-            if len(Errors) == 0:
-                Errors = crud.bind(fields["ean13"],
-                                   Errors,
-                                   fields["old_price"],
-                                   fields["new_price"],
-                                   fields["description"],
-                                   fields["begin_date"],
-                                   fields["end_date"],
-                                   fields["Path"])
-
-                if len(Errors) == 0:
-                    response = redirect("/")
-                else:
-                    response = render_template("add.html",
-                                               Errors=Errors,
-                                               user=user,
-                                               ean13=ean13, 
-                                               price=price, 
-                                               fields=fields,
-                                               display="")
-            else:
-                response = render_template("add.html",
-                                           Errors=Errors,
-                                           user=user,
-                                           ean13=ean13, 
-                                           price=price, 
-                                           fields=fields,
-                                           display="")
-
-    return response
-
-
-
-
-
-@app.route('/recharge/', methods=['GET', 'POST'])
-def recharge_cartes():
-    if request.method == 'GET':
-        pass
-    else:
-        pass
 
     return response
