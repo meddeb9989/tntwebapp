@@ -1,25 +1,135 @@
-{% extends "base.html" %}
 
-{% block title %}Sign in Page{% endblock %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home Page</title>
+<meta charset="UTF-8">
+<link rel="icon" href="{{STATIC_MEDIA_URL}}/aventix.ico" type="image/x-icon">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="{{STATIC_ASSETS_URL}}/css/tnthome/all.css">
+<link rel="stylesheet" type="text/css" href="{{STATIC_ASSETS_URL}}/css/tnthome/font-awesome.min.css">
+<link rel="stylesheet" href="{{STATIC_ASSETS_URL}}/css/tnthome/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+<style type="text/css">
+#freecssfooter{display:block;width:100%;padding:120px 0 20px;overflow:hidden;background-color:transparent;z-index:5000;text-align:center;}
+#freecssfooter div#fcssholder div{display:none;}
+#freecssfooter div#fcssholder div:first-child{display:block;}
+#freecssfooter div#fcssholder div:first-child a{float:none;margin:0 auto;}
+</style></head>
+<body>
+<script type="text/javascript">
+(function(){
+  var bsa = document.createElement('script');
+     bsa.type = 'text/javascript';
+     bsa.async = true;
+     bsa.src = '{{STATIC_ASSETS_URL}}/js/tnthome/bsa.js';
+  (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
+})();
+</script>
+<header>
+  <div class="overlay-nav hidden">
+    <ul class="mobile">
+      <li><a href="">HOME</a></li>
+    </ul>
+    <ul class="mobile">
+      <li><a href="" class="about">ABOUT</a></li>
+    </ul>
+    <ul class="mobile">
+      <li><a href="" class="work">TEAM</a></li>
+    </ul>
+    <ul class="mobile">
+      <li><a href="" class="contact-nav">CONTACT</a></li>
+    </ul>
+    <div class="close"></div>
+  </div>
+  <div class="container">
+    <div id="logo">AVENTIX</div>
+    <nav><a id="toggle" href=""><i class="fa fa-bars fa-2x"></i></a>
+      <ul class="in">
+        <li><a href="">HOME</a></li>
+      </ul>
+      <ul class="in">
+        <li><a href="javascript:void(0)" class="about">ABOUT</a></li>
+      </ul>
+      <ul class="in">
+        <li><a href="javascript:void(0)" class="work">TEAM</a></li>
+      </ul>
+      <ul class="in">
+        <li><a href="javascript:void(0)" class="contact-nav">CONTACT</a></li>
+      </ul>
+    </nav>
+    <form method="post" action="">
+    <div class="demo">
+       <div class="login__form">
+         <div class="login__row">
+           <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+             <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+           </svg>
+           <input type="text" class="login__input name" name="login" placeholder="Username"/>
+         </div>
+         <div class="login__row">
+           <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+             <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+           </svg>
+           <input type="password" name="passwd" class="login__input pass" placeholder="Password"/>
+         </div>
+         <button type="submit" class="login__submit" value= "Connexion">Sign in</button>
+       </div>
+    </div>
+  </form>
+  </div>
+</header>
+<section>
+  <div class="container">
+    <h1 class="port">About The Project</h1>
+    <div class="self-pic"></div>
+    <p class="about-para">Say Goodbye to the Restaurant Tickets it's time to deal with RFID Cards.</p>
+    <p class="about-para">TAN & TECH Team this is our web application for Aventix project <strong>INSA LYON MS IF 2017</strong>.</p>
+    <p class="about-para">This web app is for the clients of Aventix (Traders, Employer, Employee). And the idea about this project is to change the restaurant tickets, that Employer give to their Employees, by an RFID Cards which can be charged or opposed via this website, also Employees can see their balance and the Traders can see their transactions .</p>
+    
+  </div>
+</section>
+<section>
+  <h2 class="port">Meet the Team</h2>
+  <div class="container">
+    <div class="flex">
+      <figure id="one">
+        <figcaption id="img1" class="overlay">Yannis Arapis - Project Manager</figcaption>
+        <a href=""><img src="{{STATIC_ASSETS_URL}}/img/tnthome/yanis.jpg" alt="website template image"></a></figure>
+      <figure id="two">
+        <figcaption id="img2" class="overlay">Fakher Meddeb - Quality Manager</figcaption>
+        <a href=""><img src="{{STATIC_ASSETS_URL}}/img/tnthome/fakher.jpg" alt="website template image"></a></figure>
+      <figure id="three">
+        <figcaption id="img3" class="overlay">Mohamed Bouzid - Business Manager</figcaption>
+        <a href=""><img src="{{STATIC_ASSETS_URL}}/img/tnthome/takichi.jpg" alt="website template image"></a></figure>
+      <figure id="four">
+        <figcaption id="img4" class="overlay">Norine Dumas - Developer</figcaption>
+        <a href=""><img src="{{STATIC_ASSETS_URL}}/img/tnthome/nourine.jpg" alt="website template image"></a></figure>
+      <figure id="five">
+        <figcaption id="img5" class="overlay">Rihem Youssfi - Developer</figcaption>
+        <a href=""><img src="{{STATIC_ASSETS_URL}}/img/tnthome/rihem.jpg" alt="website template image"></a></figure>
+    </div>
+  </div>
+</section>
+<section class="grey">
+  <div class="container">
+    <h2 class="contact">Contact US!</h2>
+    <p class="contact">Feel free to reach out to us!</p>
+    <a href="" class="contact-button">Email US!</a>
+    <div class="flex">
+      <div class="social-media"><a href="">Twitter</a><a href="">Behance</a><a href="">Dribbble</a><a href="">Instagram</a></div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="container">
+    <p class="foot">&copy; Copyright 2017 | By <a target="_blank" rel="nofollow" href="https://tntwebserver.herokuapp.com/admin">Tan&Tech</a></p>
+  </div>
+</footer>
+<script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/tnthome/jquery-2.1.4.min.js" charset="UTF-8"></script>
+<script src="{{STATIC_ASSETS_URL}}/js/tnthome/main.js"></script>
+<script src="{{STATIC_ASSETS_URL}}/js/tnthome/index.js"></script>
 
-{% block content %}
-        <div class="row">
-            <div class="col-sm-6 col-md-5 col-lg-4 col-md-offset-2 col-lg-offset-4">
-              <h2 class="text-center form-signin-heading" style="color:white;">Connectez-vous</h2><br>
-              <form method="post" action="">
-                 <input type="text" class="form-control" placeholder="Identifiant" onClick="document.getElementById('msg_id').innerHTML = '';" required name="login"><br>
-                 <input type="Password" class="form-control" placeholder="Mot de Passe" required name="passwd">
-                 {% if msg %}
-                 <font color="red" id="msg_id">{{msg}}</font><br>
-                 {% else %}
-                 <br>
-                 {% endif %}
-                 <br>
-                 <input type="submit" class="btn btn-lg btn-primary btn-block" value= "Connexion">
-              </form>
-            </div>
-        </div>
-{% endblock %}
-
-
-
+<script type="text/javascript">(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','js/analytics.js','ga');ga('create', 'UA-159243-28', 'auto');ga('send', 'pageview');</script>
+</body>
+</html>
