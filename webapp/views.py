@@ -26,25 +26,27 @@ def signin():
     if request.method == 'GET':
         response = render_template("login.html")
     else:
-        login = request.form['login']
-        password = request.form['passwd']
-
-        r = requests.post(app.website_url+"api-token-auth/", data={"username": login,"password":password})
-        token =json.loads(r.text)
-
-        if u'non_field_errors' in token:
-            response = render_template("login.html", msg="Login ou mot de passe Incorrect !")
+        if request.form['btn'] == 'Connexion':
+            login = request.form['login']
+            password = request.form['passwd']
+    
+            r = requests.post(app.website_url+"api-token-auth/", data={"username": login,"password":password})
+            token =json.loads(r.text)
+    
+            if u'non_field_errors' in token:
+                response = render_template("login.html", msg="Login ou mot de passe Incorrect !")
+            else:
+                app.token = token[u'token']
+                url=app.website_url+"user/"
+                r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                user=json.loads(r.text)[0]
+                if user['valid']:
+                  if u'&' in user['group']:
+                      response = redirect("/view_choice/")
+                  else:
+                      response = redirect("/home/")
         else:
-            app.token = token[u'token']
-            url=app.website_url+"user/"
-            r=requests.get(url, headers={'Authorization': 'Token '+app.token})
-            user=json.loads(r.text)[0]
-            if user['valid']:
-              if u'&' in user['group']:
-                  response = redirect("/view_choice/")
-              else:
-                  response = redirect("/home/")
-
+            esponse = redirect("/")
     return response
 
 @app.route("/view_choice/", methods=['GET', 'POST'])

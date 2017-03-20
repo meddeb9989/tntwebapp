@@ -9,13 +9,25 @@
 <link rel="stylesheet" type="text/css" href="{{STATIC_ASSETS_URL}}/css/tnthome/all.css">
 <link rel="stylesheet" type="text/css" href="{{STATIC_ASSETS_URL}}/css/tnthome/font-awesome.min.css">
 <link rel="stylesheet" href="{{STATIC_ASSETS_URL}}/css/tnthome/style.css">
+<link rel="stylesheet" href="{{STATIC_ASSETS_URL}}/css/tnthome/normalize.css">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
 <style type="text/css">
-#freecssfooter{display:block;width:100%;padding:120px 0 20px;overflow:hidden;background-color:transparent;z-index:5000;text-align:center;}
-#freecssfooter div#fcssholder div{display:none;}
-#freecssfooter div#fcssholder div:first-child{display:block;}
-#freecssfooter div#fcssholder div:first-child a{float:none;margin:0 auto;}
-</style></head>
+      .form-control {
+          font-size: 22px;
+          display: block;
+          width: 100%;
+          height: 100%;
+          padding: 5px 10px;
+          background: none;
+          background-image: none;
+          border: 1px solid #a0b3b0;
+          color: #ffffff;
+          border-radius: 4px;
+          -webkit-transition: border-color .25s ease, box-shadow .25s ease;
+          transition: border-color .25s ease, box-shadow .25s ease;
+    }  
+</style>  
+</head>
 <body>
 <script type="text/javascript">
 (function(){
@@ -58,25 +70,101 @@
         <li><a href="javascript:void(0)" class="contact-nav">CONTACT</a></li>
       </ul>
     </nav>
-    <form method="post" action="">
-    <div class="demo">
-       <div class="login__form">
-         <div class="login__row">
-           <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
-             <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
-           </svg>
-           <input type="text" class="login__input name" name="login" placeholder="Username"/>
-         </div>
-         <div class="login__row">
-           <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
-             <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
-           </svg>
-           <input type="password" name="passwd" class="login__input pass" placeholder="Password"/>
-         </div>
-         <button type="submit" class="login__submit" value= "Connexion">Sign in</button>
-       </div>
-    </div>
-  </form>
+
+     <div class="form"> 
+      <ul class="tab-group">
+        <li class="tab active"><a href="#login">Se connecter</a></li>
+        <li class="tab"><a href="#signup">S'enregistrer</a></li>
+      </ul>
+      
+      <div class="tab-content">
+        <div id="login">   
+          <h1>Bonjour !</h1>
+          
+          <form method="post" action="">
+          
+            <div class="field-wrap">
+            <label>
+              Login<span class="req">*</span>
+            </label>
+            <input type="text" required autocomplete="off" name="login"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Password<span class="req">*</span>
+            </label>
+            <input type="password" required autocomplete="off" name="passwd"/>
+          </div>
+          
+          
+          <button type="submit" class="button button-block" name="btn" value= "Connexion"/>Confirmer</button>
+          
+          </form>
+
+        </div>
+
+
+        <div id="signup">   
+          <h1>Régoignez Nous !</h1>
+          
+          <form method="post" action="">
+          
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                Nom<span class="req">*</span>
+              </label>
+              <input type="text" required autocomplete="off" />
+            </div>
+        
+            <div class="field-wrap">
+              <label>
+                Prénom<span class="req">*</span>
+              </label>
+              <input type="text"required autocomplete="off"/>
+            </div>
+          </div>
+
+          <div class="field-wrap">
+            <label>
+              Addresse Email<span class="req">*</span>
+            </label>
+            <input type="email" required autocomplete="off"/>
+          </div>
+
+            <div class="field-wrap">
+             <select class="form-control">
+               <option>Employeur</option>
+               <option>Commerçant</option>
+             </select>
+          </div>
+          
+          <div class="top-row">
+          <div class="field-wrap">
+            <label>
+              Mot de pass<span class="req">*</span>
+            </label>
+            <input type="password" required autocomplete="off"/>
+          </div>
+          <div class="field-wrap">
+            <label>
+              Confirmer mot de passe<span class="req">*</span>
+            </label>
+            <input type="password" required autocomplete="off"/>
+          </div>
+        </div>
+          
+          <button type="submit" class="button button-block" name="btn" value= "Create"/>Confirmer</button>
+          
+          </form>
+
+        </div>
+        
+        
+      </div><!-- tab-content -->
+      
+</div> <!-- /form -->
   </div>
 </header>
 <section>

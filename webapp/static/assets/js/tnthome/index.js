@@ -1,62 +1,43 @@
-$(document).ready(function() {
+$('.form').find('input, textarea').on('keyup blur focus', function (e) {
   
-  var animating = false,
-      submitPhase1 = 1100,
-      submitPhase2 = 400,
-      logoutPhase1 = 800,
-      $login = $(".login"),
-      $app = $(".app");
+  var $this = $(this),
+      label = $this.prev('label');
+
+	  if (e.type === 'keyup') {
+			if ($this.val() === '') {
+          label.removeClass('active highlight');
+        } else {
+          label.addClass('active highlight');
+        }
+    } else if (e.type === 'blur') {
+    	if( $this.val() === '' ) {
+    		label.removeClass('active highlight'); 
+			} else {
+		    label.removeClass('highlight');   
+			}   
+    } else if (e.type === 'focus') {
+      
+      if( $this.val() === '' ) {
+    		label.removeClass('highlight'); 
+			} 
+      else if( $this.val() !== '' ) {
+		    label.addClass('highlight');
+			}
+    }
+
+});
+
+$('.tab a').on('click', function (e) {
   
-  function ripple(elem, e) {
-    $(".ripple").remove();
-    var elTop = elem.offset().top,
-        elLeft = elem.offset().left,
-        x = e.pageX - elLeft,
-        y = e.pageY - elTop;
-    var $ripple = $("<div class='ripple'></div>");
-    $ripple.css({top: y, left: x});
-    elem.append($ripple);
-  };
+  e.preventDefault();
   
-  $(document).on("click", ".login__submit", function(e) {
-    if (animating) return;
-    animating = true;
-    var that = this;
-    ripple($(that), e);
-    $(that).addClass("processing");
-    setTimeout(function() {
-      $(that).addClass("success");
-      setTimeout(function() {
-        $app.show();
-        $app.css("top");
-        $app.addClass("active");
-      }, submitPhase2 - 70);
-      setTimeout(function() {
-        $login.hide();
-        $login.addClass("inactive");
-        animating = false;
-        $(that).removeClass("success processing");
-      }, submitPhase2);
-    }, submitPhase1);
-  });
+  $(this).parent().addClass('active');
+  $(this).parent().siblings().removeClass('active');
   
-  $(document).on("click", ".app__logout", function(e) {
-    if (animating) return;
-    $(".ripple").remove();
-    animating = true;
-    var that = this;
-    $(that).addClass("clicked");
-    setTimeout(function() {
-      $app.removeClass("active");
-      $login.show();
-      $login.css("top");
-      $login.removeClass("inactive");
-    }, logoutPhase1 - 120);
-    setTimeout(function() {
-      $app.hide();
-      animating = false;
-      $(that).removeClass("clicked");
-    }, logoutPhase1);
-  });
+  target = $(this).attr('href');
+
+  $('.tab-content > div').not(target).hide();
+  
+  $(target).fadeIn(600);
   
 });
