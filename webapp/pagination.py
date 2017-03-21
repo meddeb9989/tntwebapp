@@ -18,7 +18,7 @@ class Paginate():
         j=0
 
         if search_text=="":
-            for transac in table[self.itemPerPage*(page-1): self.itemPerPage*page]:
+            for transac in table:
                 print transac
                 MyList[str(transac['id']+j)] = transac
                 j=j+1
@@ -28,7 +28,7 @@ class Paginate():
             for transac in table:
                 if stringToSearch in str(transac[u'Transaction']).lower():
                     search_list.append(transac)
-            for transac in search_list[self.itemPerPage*(page-1): self.itemPerPage*page]:
+            for transac in search_list:
                 MyList[str(transac['id']+j)] = transac
                 j=j+1
             i = len(MyList)

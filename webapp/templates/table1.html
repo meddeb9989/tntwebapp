@@ -1,0 +1,120 @@
+                            
+                            {% if usertype == "Employeur" %}
+                            <div class="table-responsive">
+                                <label style="">
+                                   <input type="checkbox" name="btncheckAll" id="checkboxAll" onchange="javascript:visibilite(this.id); return false;" > 
+                                   <font style="color:black;">Selectionner Tout :  &nbsp;&nbsp;&nbsp;&nbsp;</font>
+                                </label>
+                                <button class="btn btn-primary" type="submit" name="btn" value="recharge_All" style="display:none;">
+                                    <span class="glyphicon glyphicon-euro"></span> € Recharger Tout &nbsp;&nbsp;
+                                </button>
+                                <button class="btn btn-danger" type="submit" name="btn" value="bloc_All" style="display:none;">
+                                    <span class="glyphicon glyphicon-trash"></span> Déclarer Tout 
+                                </button>
+                               
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+ 
+                                    <thead>
+                                        <tr>
+                                            <th>Employé</th>
+                                            <th>N° Carte</th>
+                                            <th>Date</th>
+                                            <th>Validité</th>
+                                            <th>Recharge</th>
+                                            <th>Opposition</th>
+                                        </tr>
+                                    </thead>
+
+
+                                    <tbody>
+                                    <tr style="">
+                                     <td class="odd gradeX">
+                                       <label style="">
+                                           <input type="checkbox" name="btncheckAll" id="checkboxAll" onchange="javascript:visibilite(this.id); return false;" > 
+                                           <font style="color:white;">Selectionner Tout</font>
+                                       </label>
+                                       <br><br>
+                                    </td>
+                                    <td class="center">
+                                        <div class="" id="id_export_btn" style="display:none;">
+                                            <button class="btn btn-block btn-primary" type="submit" name="btn" value="recharge_All" style="width: 100px;"><span class=""></span> € Recharger </button>
+                                        </div> 
+                                        <br>
+                                    </td>
+                                    <td calss="center">
+                                        <div class="" id="id_delete_btn" style="display:none;">
+                                            <button class="btn btn-block btn-danger" type="submit" name="btn" value="bloc_All" style="width: 100px;"><span class="glyphicon glyphicon-trash"></span> Déclarer </button>
+                                        </div> 
+                                        <br>
+                                    </td>
+
+
+                    {% for campainid, campaininfo in MyCampainsList.iteritems() %} 
+                       <tr style="" id="color_{{ campaininfo['id'] }}">                      
+                           <td class="">
+                              <label>
+                                 <input type="checkbox" name="checkfor_{{campaininfo['id']}}" onchange="javascript:visibilite(this.id); return false;" id="checkbox_{{campaininfo['id']}}">
+                              </label>
+                              <a size="18"><font color="green" id="campain_name_{{campaininfo['id']}}"><h8 style="font-size:120%;">{{campaininfo["Nom"]}}</h8></font></a>
+                           </td>
+                           <td>
+                            <font style="color:white;">{{campaininfo["Carte"]}}</font>
+                            <input type="hidden" name="carte" id="carte_{{campaininfo['id']}}" value="{{campaininfo['Carte']}}">
+                           </td>
+                           <td>
+                             <font style="color:white;">{{campaininfo["Date"]}}</font>
+                             <input type="hidden" name="Date" id="Date_{{campaininfo['id']}}" value="{{campaininfo['Date']}}">
+                            </td>
+                            <td>
+                                 <font id="validity_{{campaininfo['id']}}" name="validity_for_{{campaininfo['id']}}" style="font-size:120%;"></font>
+                            </td>
+                            <td>
+                                 <button class="btn btn-xs btn-primary" type="submit" name="btn" id="recharge_{{campaininfo['id']}}" style="display:'';" value="recharge_{{campaininfo['id']}}"><span class="glyphicon glyphicon-euro"></span> Recharger </button>
+                            </td>
+                            <td>
+                                {% if campaininfo["valid_card"] == True %}
+                                      <button class="btn btn-xs btn-danger" id="bloc_{{campaininfo['id']}}" style="display:'';" type="submit" name="btn" value="bloc_{{campaininfo['id']}}"><span class="glyphicon glyphicon-trash"></span> Déclarer  </button>
+                                {% else %}
+                                      <button class="btn btn-xs btn-disabled" id="bloc_{{campaininfo['id']}}" style="display:'';" type="submit" name="btn" value="locked_{{campaininfo['id']}}"><span class="glyphicon glyphicon-remove"></span> Opposée </button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                       {% endfor %}
+                                    
+
+                                    {% else %}
+                                    <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Restaurant</th>
+                                            <th>Date</th>
+                                            <th>Montant</th>
+                                            <th>Etat</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for campainid, campaininfo in MyCampainsList.iteritems() %}
+                                    
+                                        <tr class="odd gradeX" id="color_{{ campainid }}">
+                                            <td>
+                                                <a size="18">
+                                                    <font id="campain_name_{{ campainid }}">
+                                                        <h8 style="">{{campaininfo["Transaction"]}}</h8>
+                                                    </font>
+                                                </a>
+                                            </td>
+                                            <td class="center">
+                                                <font style="">{{campaininfo["Date"]}}</font>
+                                                <input type="hidden" name="Date" id="Date_{{campainid}}" value="{{campaininfo['Date']}}" style="">
+                                            </td>
+                                            <td class="center">€{{campaininfo["Montant"]}} EUR</td>
+                                            <td class="center"><font id="validity_{{ campainid }}" name="validity_for_{{campainid}}" style="" ></font></td>
+                                        </tr>
+                                    {% endfor %}
+
+
+                                    {% endif %}
+
+                                    </tbody>
+                                </table>

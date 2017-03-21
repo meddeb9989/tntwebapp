@@ -44,14 +44,12 @@
                     if (usertype.id=="usertype_Employeur")
                     {
                       validity.color = "green";
-                      campain_name.color = "white";
                       color.className="success";
                       validity.innerHTML = "Carte Valide";
                     }
                     else
                     {
                       validity.color = "orange";
-                      campain_name.color = "white";
                       color.className="warning";
                       validity.innerHTML = "Transaction En Cours...";
                       
@@ -64,14 +62,12 @@
                     if (usertype.id=="usertype_Employeur")
                     {
                       validity.color = "red";
-                      campain_name.color = "white";
                       color.className="danger";
                       validity.innerHTML = "Carte Expirée";
                     }
                     else
                     {
                       validity.color = "green";
-                      campain_name.color = "white";
                       color.className="success";
                       validity.innerHTML = "Transaction Effectuée";
                     }
@@ -82,7 +78,6 @@
                     if (usertype.id=="usertype_Employeur")
                     {
                       validity.color = "orange";
-                      campain_name.color = "white";
                       color.className="warning";
                       validity.innerHTML = "Expire Bientot...";
                     }

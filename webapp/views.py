@@ -144,7 +144,7 @@ def my_home_page(page, validation, search_text, user_type):
                     if pages < page:
                         page = pages
 
-                    response = render_template("home.html",
+                    response = render_template("home1.html",
                                                usertype=user_type,
                                                user=user['name'],
                                                userid=user['id'],
@@ -172,7 +172,7 @@ def my_home_page(page, validation, search_text, user_type):
                     if pages < page:
                         page = pages
     
-                    response = render_template("home.html",
+                    response = render_template("home1.html",
                                                usertype=user_type,
                                                user=user['name'],
                                                userid=user['id'],
@@ -200,7 +200,7 @@ def my_home_page(page, validation, search_text, user_type):
                 if pages < page:
                     page = pages
 
-                response = render_template("home.html",
+                response = render_template("home1.html",
                                            usertype=user['group'],
                                            user=user['name'],
                                            userid=user['id'],
@@ -232,7 +232,7 @@ def my_home_page(page, validation, search_text, user_type):
                 if pages < page:
                     page = pages
 
-                response = render_template("home.html",
+                response = render_template("home1.html",
                                            usertype=user['group'],
                                            user=user['name'],
                                            userid=user['id'],
@@ -257,7 +257,7 @@ def my_home_page(page, validation, search_text, user_type):
                 if pages < page:
                     page = pages
 
-                response = render_template("home.html",
+                response = render_template("home1.html",
                                            usertype=user['type'],
                                            user=user['name'],
                                            userid=user['id'],

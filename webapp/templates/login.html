@@ -87,15 +87,20 @@
             <label>
               Login<span class="req">*</span>
             </label>
-            <input type="text" required autocomplete="off" name="login"/>
+            <input type="text" required autocomplete="off" name="login" onClick="document.getElementById('msg_id').innerHTML = '';"/>
           </div>
           
           <div class="field-wrap">
             <label>
               Password<span class="req">*</span>
             </label>
-            <input type="password" required autocomplete="off" name="passwd"/>
+            <input type="password" required autocomplete="off" name="passwd" onClick="document.getElementById('msg_id').innerHTML = '';"/>
           </div>
+           {% if msg %}
+           <font style="margin-left: 150px;" color="red" id="msg_id">{{msg}}</font><br>
+           {% else %}
+           <br>
+           {% endif %}
           
           
           <button type="submit" class="button button-block" name="btn" value= "Connexion"/>Confirmer</button>
@@ -213,6 +218,7 @@
 <script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/tnthome/jquery-2.1.4.min.js" charset="UTF-8"></script>
 <script src="{{STATIC_ASSETS_URL}}/js/tnthome/main.js"></script>
 <script src="{{STATIC_ASSETS_URL}}/js/tnthome/index.js"></script>
+
 
 </body>
 </html>
