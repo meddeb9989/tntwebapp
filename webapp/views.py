@@ -24,35 +24,107 @@ def index():
 @app.route("/signin/", methods=['GET', 'POST'])
 def signin():
     if request.method == 'GET':
-        response = render_template("login.html")
+        response = render_template("login.html", form='login')
     else:
         if request.form['btn'] == 'Connexion':
+
             login = request.form['login']
             password = request.form['passwd']
-    
-            r = requests.post(app.website_url+"api-token-auth/", data={"username": login,"password":password})
-            token =json.loads(r.text)
-    
-            if u'non_field_errors' in token:
-                response = render_template("login.html", msg="Login ou mot de passe Incorrect !")
+
+            url=app.website_url+"user_active/"+login
+            r=requests.get(url)
+            user=json.loads(r.text)[0]
+
+            if user['valid']:
+                r = requests.post(app.website_url+"api-token-auth/", data={"username": login,"password":password})
+                token =json.loads(r.text)
+        
+                if u'non_field_errors' in token:
+                    print token
+                    response = render_template("login.html", form='login', msg="Login ou mot de passe Incorrect !")
+                else:
+                    app.token = token[u'token']
+                    url=app.website_url+"user/"
+                    r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                    user=json.loads(r.text)[0]
+                    if user['valid']:
+                        if u'&' in user['group']:
+                            response = redirect("/view_choice/")
+                        else:
+                            response = redirect("/home/")
+            elif user['Error']==u'not active':
+                response = render_template("activate_account.html") 
             else:
-                app.token = token[u'token']
-                url=app.website_url+"user/"
-                r=requests.get(url, headers={'Authorization': 'Token '+app.token})
-                user=json.loads(r.text)[0]
-                if user['valid']:
-                  if u'&' in user['group']:
-                      response = redirect("/view_choice/")
-                  else:
-                      response = redirect("/home/")
-        else:
-            esponse = redirect("/")
+                response = render_template("login.html", form='login', msg="Login ou mot de passe Incorrect !") 
+
+        elif request.form['btn'] == 'Create':
+            first_name = request.form['first_name']
+            last_name = request.form['last_name']
+            new_password = request.form['new_password']
+            confirm_password = request.form['confirm_password']
+            email = request.form['email']
+            username = request.form['username']
+            select = unicode(request.form.get('option'))
+
+            if (new_password==confirm_password):
+                login = 'admin'
+                password = 'msif2017'
+                r = requests.post(app.website_url+"api-token-auth/", data={"username": login,"password":password})
+                token =json.loads(r.text)
+    
+                if u'non_field_errors' in token:
+                    response = render_template("login.html", form='create', msg="Login ou mot de passe Incorrect !")
+                else:
+                    admin_token = token[u'token']
+                    url=app.website_url+"create_user/"
+                    data={"username": username, "first_name": first_name, "last_name": last_name, "type": select, "email": email, "password": new_password}
+                    r=requests.get(url, data=data, headers={'Authorization': 'Token '+ admin_token})
+                    valid=json.loads(r.text)[0]
+
+                    if valid['valid']:
+                        url=app.website_url+"user_active/"+username
+                        r=requests.get(url)
+                        user=json.loads(r.text)[0]
+
+                        if user['valid']:
+                            r = requests.post(app.website_url+"api-token-auth/", data={"username": login,"password":password})
+                            token =json.loads(r.text)
+                    
+                            if u'non_field_errors' in token:
+                                print token
+                                response = render_template("login.html", form='login')
+                            else:
+                                app.token = token[u'token']
+                                url=app.website_url+"user/"
+                                r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                                user=json.loads(r.text)[0]
+                                if user['valid']:
+                                    if u'&' in user['group']:
+                                        response = redirect("/view_choice/")
+                                    else:
+                                        response = redirect("/home/")
+                        elif user['Error']==u'not active':
+                            response = render_template("activate_account.html") 
+                        else:
+                            response = render_template("login.html", form='login', msg="Login ou mot de passe Incorrect !")     
+                    else:
+                        response = render_template("login.html", form='create', msg_login="Nom d'utilisateur existe !")
+            else:
+                response = render_template("login.html", form='create', msg_mdp="Les mots de passe ne correspondent pas !")
     return response
 
 @app.route("/view_choice/", methods=['GET', 'POST'])
 def view_choice():
     if request.method == 'GET' and app.token!=None:
-        response = render_template("choice.html")
+        url=app.website_url+"user/"
+        r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+        user=json.loads(r.text)[0]
+        if user['valid']:
+          if u'&' in user['group']:
+              response = render_template("choice.html")
+          else:
+              response = redirect("/home/")
+        
     elif request.method == 'POST' and app.token!=None:
         index_search = "/home/user_type=" + request.form['btn']
         response = redirect(index_search)
@@ -145,6 +217,7 @@ def my_home_page(page, validation, search_text, user_type):
                         page = pages
 
                     response = render_template("home1.html",
+                                               add_employe=False,
                                                usertype=user_type,
                                                user=user['name'],
                                                userid=user['id'],
@@ -165,6 +238,10 @@ def my_home_page(page, validation, search_text, user_type):
                     url=app.website_url+"amount/"
                     r=requests.get(url, headers={'Authorization': 'Token '+app.token})
                     solde=json.loads(r.text)[0]['amount']
+
+                    url=app.website_url+"card_state/"
+                    r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                    card_state=json.loads(r.text)[0]['valid']
     
                     paginate = Paginate(5)
                     Mylist, pages = paginate.getListAndPages(transactions, page, search_text)
@@ -176,6 +253,7 @@ def my_home_page(page, validation, search_text, user_type):
                                                usertype=user_type,
                                                user=user['name'],
                                                userid=user['id'],
+                                               card_state=card_state,
                                                solde=solde,
                                                currentPage=page,
                                                numberOfPages=pages,
@@ -201,6 +279,7 @@ def my_home_page(page, validation, search_text, user_type):
                     page = pages
 
                 response = render_template("home1.html",
+                                           add_employe=True,
                                            usertype=user['group'],
                                            user=user['name'],
                                            userid=user['id'],

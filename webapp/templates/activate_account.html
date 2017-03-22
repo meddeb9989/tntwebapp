@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Page{% endblock %}
+
+{% block head %}
+  {{ super() }}
+    <link href="{{STATIC_ASSETS_URL}}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{STATIC_ASSETS_URL}}/css/dataTable/font-awesome.css" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+        {% with search=False %}
+        {% include 'navebar.html' %}
+        {% endwith %}
+
+  <div class="col-md-4 col-sm-4 col-xs-12" >
+    <br><br><br><br><br><br>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12" >
+    <br><br><br><br><br><br>
+    <div class="alert alert-danger text-center">
+        <h3>Compte non activé</h3> 
+        <hr />
+        <i class="fa fa-warning fa-4x"></i>
+        <p>
+        Votre compte n'est pas encore activé veuillez consulter votre boite email et cliquer sur le lien pour activer votre compte. <br><br>Merci de votre compréhension.
+        </p>
+        <hr />
+    </div>
+</div>
+
+{% endblock %}

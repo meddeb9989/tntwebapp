@@ -8,16 +8,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/home/"><span class="glyphicon glyphicon-home"></span> Acceuil</a>
+          <a class="navbar-brand" href="/home/"><span class="glyphicon glyphicon-home"></span> ACCUEIL</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
 
-            {% if solde %}
-              <li><a href="/profile/">€{{ solde }} EUR</a></li>
-            {% else %}
+
               <li><a href="/home/"></a></li>
-            {% endif %}
             
             <li><a href="/home/"  id="usertype_{{usertype}}" value="{{usertype}}" >{{ username }}</a></li>
             <li><a href="/signout/"><span class="glyphicon glyphicon-off"></span> Déconnexion</a></li>

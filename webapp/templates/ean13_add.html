@@ -4,6 +4,7 @@
 
 {% block head %}
   {{ super() }}
+  <link href="{{STATIC_ASSETS_URL}}/css/bootstrap.min.css" rel="stylesheet">
       <style>
           .centered-form {
               margin-top: 40px;
@@ -22,15 +23,16 @@
         <div class="row centered-form">
           <div class="col-sm-6 col-md-5 col-lg-7 col-md-offset-2 col-lg-offset-2">
                     <div class="form-group">
-                        <h1 class="panel-title text-center">Rechagrer :</h1><br>
+                      <br><br><br><br><br><br>
+                        <h2>Rechagrer :</h2><br>
                           {% if campainList== [] %}
                             <div class="container">
-                              <h5 style="color:white;"> - {{campainName}}</h5>
+                              <h5 style="color:black;"> - {{campainName}}</h5>
                             </div>
                            {% else %}
                               <div class="container">
                                  {% for name in campainList %}
-                                   <h5 style="color:white;"> - {{name}}</h5>
+                                   <h5 style="color:black;"> - {{name}}</h5>
                                  {% endfor %}
                               </div>
                             {% endif %} 

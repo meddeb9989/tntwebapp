@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="{{STATIC_ASSETS_URL}}/css/tnthome/font-awesome.min.css">
 <link rel="stylesheet" href="{{STATIC_ASSETS_URL}}/css/tnthome/style.css">
 <link rel="stylesheet" href="{{STATIC_ASSETS_URL}}/css/tnthome/normalize.css">
+<!-- CUSTOM STYLE  -->
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
 <style type="text/css">
       .form-control {
@@ -25,7 +26,7 @@
           border-radius: 4px;
           -webkit-transition: border-color .25s ease, box-shadow .25s ease;
           transition: border-color .25s ease, box-shadow .25s ease;
-    }  
+     }
 </style>  
 </head>
 <body>
@@ -41,13 +42,13 @@
 <header>
   <div class="overlay-nav hidden">
     <ul class="mobile">
-      <li><a href="">HOME</a></li>
+      <li><a href="">ACCUEIL</a></li>
     </ul>
     <ul class="mobile">
-      <li><a href="" class="about">ABOUT</a></li>
+      <li><a href="" class="about">PRESENTATION</a></li>
     </ul>
     <ul class="mobile">
-      <li><a href="" class="work">TEAM</a></li>
+      <li><a href="" class="work">L'EQUIPE</a></li>
     </ul>
     <ul class="mobile">
       <li><a href="" class="contact-nav">CONTACT</a></li>
@@ -58,41 +59,42 @@
     <div id="logo">AVENTIX</div>
     <nav><a id="toggle" href=""><i class="fa fa-bars fa-2x"></i></a>
       <ul class="in">
-        <li><a style="color:white;" href="">HOME</a></li>
+        <li><a style="color:white;" href="">ACCUEIL</a></li>
       </ul>
       <ul class="in">
-        <li><a style="color:white;" href="javascript:void(0)" class="about">ABOUT</a></li>
+        <li><a style="color:white;" href="javascript:void(0)" class="about">PRESENTATION</a></li>
       </ul>
       <ul class="in">
-        <li><a style="color:white;" href="javascript:void(0)" class="work">TEAM</a></li>
+        <li><a style="color:white;" href="javascript:void(0)" class="work">L'EQUIPE</a></li>
       </ul>
       <ul class="in">
         <li><a  style="color:white;" href="javascript:void(0)" class="contact-nav">CONTACT</a></li>
       </ul>
     </nav>
 
+    <div class="col-md-8 col-sm-8 col-xs-12">
      <div class="form"> 
       <ul class="tab-group">
+
+        {% if form == "login" %}
         <li class="tab active"><a href="#login">Se connecter</a></li>
         <li class="tab"><a href="#signup">S'enregistrer</a></li>
-      </ul>
-      
-      <div class="tab-content">
+              <div class="tab-content">
         <div id="login">   
           <h1>Bonjour !</h1>
           
-          <form method="post" action="">
+          <form name="form" id="myForm" method="post" action="">
           
             <div class="field-wrap">
             <label>
-              Login<span class="req">*</span>
+              Nom d'utilisateur<span class="req">*</span>
             </label>
             <input type="text" required autocomplete="off" name="login" onClick="document.getElementById('msg_id').innerHTML = '';"/>
           </div>
           
           <div class="field-wrap">
             <label>
-              Password<span class="req">*</span>
+              Mot de passe<span class="req">*</span>
             </label>
             <input type="password" required autocomplete="off" name="passwd" onClick="document.getElementById('msg_id').innerHTML = '';"/>
           </div>
@@ -111,52 +113,61 @@
 
 
         <div id="signup">   
-          <h1>Régoignez Nous !</h1>
+          <h1>Rejoignez-nous !</h1>
           
-          <form method="post" action="">
+          <form name="form" id="myForm" method="post" action="">
           
           <div class="top-row">
             <div class="field-wrap">
               <label>
                 Nom<span class="req">*</span>
               </label>
-              <input type="text" required autocomplete="off" />
+              <input type="text" name="first_name" required autocomplete="off" />
             </div>
         
             <div class="field-wrap">
               <label>
                 Prénom<span class="req">*</span>
               </label>
-              <input type="text"required autocomplete="off"/>
+              <input type="text" name="last_name" required autocomplete="off"/>
             </div>
           </div>
 
           <div class="field-wrap">
-            <label>
-              Addresse Email<span class="req">*</span>
-            </label>
-            <input type="email" required autocomplete="off"/>
-          </div>
-
-            <div class="field-wrap">
-             <select class="form-control">
+             <select class="form-control" name="option">
                <option>Employeur</option>
                <option>Commerçant</option>
              </select>
           </div>
+
+          <div class="top-row">
+          <div class="field-wrap">
+              <label>
+                Nom d'utilisateur<span class="req">*</span>
+              </label>
+              <input type="text" name="username" required autocomplete="off"/>
+            </div>
+          <div class="field-wrap">
+            <label>
+              Adresse email<span class="req">*</span>
+            </label>
+            <input type="email" name="email" required autocomplete="off"/>
+          </div>
+          </div>
+
           
           <div class="top-row">
           <div class="field-wrap">
             <label>
-              Mot de pass<span class="req">*</span>
+              Mot de passe<span class="req">*</span>
             </label>
-            <input type="password" required autocomplete="off"/>
+            <input type="password" name="new_password" required autocomplete="off"/>
           </div>
           <div class="field-wrap">
             <label>
               Confirmer mot de passe<span class="req">*</span>
             </label>
-            <input type="password" required autocomplete="off"/>
+            <input type="password" name="confirm_password" required autocomplete="off"/>
           </div>
         </div>
           
@@ -168,46 +179,175 @@
         
         
       </div><!-- tab-content -->
+        {% else %}
+        <li class="tab"><a href="#login">Se connecter</a></li>
+        <li class="tab active"><a href="#signup">S'enregistrer</a></li>
+
+        <div class="tab-content">
+
+        <div id="signup">   
+          <h1>Rejoignez-nous !</h1>
+          
+         <form name="form" id="myForm" method="post" action="">
+          
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                Nom<span class="req">*</span>
+              </label>
+              <input type="text" name="first_name" onClick="document.getElementById('msg_mdp').innerHTML = ''; document.getElementById('msg_login').innerHTML = '';" required autocomplete="off" />
+            </div>
+        
+            <div class="field-wrap">
+              <label>
+                Prénom<span class="req">*</span>
+              </label>
+              <input type="text" name="last_name" onClick="document.getElementById('msg_mdp').innerHTML = ''; document.getElementById('msg_login').innerHTML = '';" required autocomplete="off"/>
+            </div>
+          </div>
+
+          <div class="field-wrap">
+             <select class="form-control" name="option" onClick="document.getElementById('msg_mdp').innerHTML = ''; document.getElementById('msg_login').innerHTML = '';">
+               <option>Employeur</option>
+               <option>Commerçant</option>
+             </select>
+          </div>
+
+          <div class="top-row">
+          <div class="field-wrap">
+              <label>
+                Nom d'utilisateur<span class="req">*</span>
+              </label>
+              <input type="text" name="username" onClick="document.getElementById('msg_mdp').innerHTML = ''; document.getElementById('msg_login').innerHTML = '';" required autocomplete="off"/>
+            </div>
+          <div class="field-wrap">
+            <label>
+              Adresse email<span class="req">*</span>
+            </label>
+            <input type="email" name="email" onClick="document.getElementById('msg_mdp').innerHTML = ''; document.getElementById('msg_login').innerHTML = '';" required autocomplete="off"/>
+          </div>
+          </div>
+        {% if msg_login %}
+         <font color="red" id="msg_login">{{msg_login}}</font>
+        {% endif %}
+          
+          <div class="top-row">
+          <div class="field-wrap">
+            <label>
+              Mot de passe<span class="req">*</span>
+            </label>
+            <input type="password" name="new_password" onClick="document.getElementById('msg_mdp').innerHTML = ''; document.getElementById('msg_login').innerHTML = '';" required autocomplete="off"/>
+          </div>
+          <div class="field-wrap">
+            <label>
+              Confirmer mot de passe<span class="req">*</span>
+            </label>
+            <input type="password" name="confirm_password" onClick="document.getElementById('msg_mdp').innerHTML = ''; document.getElementById('msg_login').innerHTML = '';" required autocomplete="off"/>
+          </div>
+        </div>
+
+        {% if msg_mdp %}
+         <font color="red" id="msg_mdp">{{msg_mdp}}</font>
+        {% endif %}
+          
+          <button type="submit" class="button button-block" name="btn" value= "Create"/>Confirmer</button>
+          
+          </form>
+
+        </div>
+
+        <div id="login">   
+          <h1>Bonjour !</h1>
+          
+         <form name="form" id="myForm" method="post" action="">
+          
+            <div class="field-wrap">
+            <label>
+              Nom d'utilisateur<span class="req">*</span>
+            </label>
+            <input type="text" required autocomplete="off" name="login" onClick="document.getElementById('msg_id').innerHTML = '';"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Mot de passe<span class="req">*</span>
+            </label>
+            <input type="password" required autocomplete="off" name="passwd" onClick="document.getElementById('msg_id').innerHTML = '';"/>
+          </div>
+           {% if msg %}
+           <font style="margin-left: 150px;" color="red" id="msg_id">{{msg}}</font><br>
+           {% else %}
+           <br>
+           {% endif %}
+          
+          
+          <button type="submit" class="button button-block" name="btn" value= "Connexion"/>Confirmer</button>
+          
+          </form>
+
+        </div>
+        
+        
+      </div><!-- tab-content -->
+        {% endif %}
+      </ul>
       
-</div> <!-- /form -->
-  </div>
+
+      
+    </div> <!-- /form -->
+   </div>
+  </div><!-- /container -->
 </header>
 <section>
   <div class="container">
-    <h1 class="port">About The Project</h1>
+    <h1 class="port">LE PROJET</h1>
     <div class="self-pic"></div>
-    <p class="about-para">Say Goodbye to the Restaurant Tickets it's time to deal with RFID Cards.</p>
-    <p class="about-para">TAN & TECH Team this is our web application for Aventix project <strong>INSA LYON MS IF 2017</strong>.</p>
-    <p class="about-para">This web app is for the clients of Aventix (Traders, Employer, Employee). And the idea about this project is to change the restaurant tickets, that Employer give to their Employees, by an RFID Cards which can be charged or opposed via this website, also Employees can see their balance and the Traders can see their transactions .</p>
+
+
+
+
+
+    <p class="about-para" align="center">Dites adieu aux <strong>chèques restaurant</strong> ! Il est temps de passer aux <strong>cartes à puce</strong>.</p>
+    <p class="about-para" align="center">L’équipe <strong>Tan & Tech</strong> est fière de vous présenter son application web réalisée pour l’entreprise Aventix <br>dans le cadre du projet de gestion de paiement électronique par carte à puce de l’<strong>INSA de Lyon</strong>.</p>
+    <p class="about-para" align="center">Ce site est réservé aux clients d’<strong>Aventix</strong> (<strong>commerçants</strong>, <strong>employeurs</strong>, <strong>employés</strong>). <br>Les utilisateurs pourront ici, selon leur rôle au sein du système, charger, mettre en opposition leur carte ou voir la liste de leurs transactions.</p>
     
   </div>
 </section>
+
 <section>
-  <h2 class="port">Meet the Team</h2>
+  <h2 class="port">L'EQUIPE</h2>
   <div class="container">
     <div class="flex">
       <figure id="one">
-        <figcaption id="img1" class="overlay">Yannis Arapis - Project Manager</figcaption>
+        <figcaption id="img1" class="overlay">Yannis Arapis - Chef de projet</figcaption>
         <a href=""><img src="{{STATIC_ASSETS_URL}}/img/tnthome/yanis.jpg" alt="website template image"></a></figure>
       <figure id="two">
-        <figcaption id="img2" class="overlay">Fakher Meddeb - Quality Manager</figcaption>
+        <figcaption id="img2" class="overlay">Fakher Meddeb - Responsable qualité</figcaption>
         <a href=""><img src="{{STATIC_ASSETS_URL}}/img/tnthome/fakher.jpg" alt="website template image"></a></figure>
       <figure id="three">
-        <figcaption id="img3" class="overlay">Mohamed Bouzid - Business Manager</figcaption>
+        <figcaption id="img3" class="overlay">Mohamed Bouzid - Responsable métiers</figcaption>
         <a href=""><img src="{{STATIC_ASSETS_URL}}/img/tnthome/takichi.jpg" alt="website template image"></a></figure>
       <figure id="four">
-        <figcaption id="img4" class="overlay">Norine Dumas - Developer</figcaption>
+        <figcaption id="img4" class="overlay">Norine Dumas - Développeuse</figcaption>
         <a href=""><img src="{{STATIC_ASSETS_URL}}/img/tnthome/nourine.jpg" alt="website template image"></a></figure>
       <figure id="five">
-        <figcaption id="img5" class="overlay">Rihem Youssfi - Developer</figcaption>
+        <figcaption id="img5" class="overlay">Rihem Youssfi - Développeuse</figcaption>
         <a href=""><img src="{{STATIC_ASSETS_URL}}/img/tnthome/rihem.jpg" alt="website template image"></a></figure>
     </div>
   </div>
+
+
+                
 </section>
 <section class="grey">
   <div class="container">
-    <p class="contact">Feel free to reach out to us!</p>
-    <a href="" style="color:white;" class="contact-button">Email US!</a>
+    <p class="contact"><br></p>
+    <button style="color:white;" class="contact-button">
+                                Contactez-nous !
+    </button>
+
+
+
   </div>
 </section>
 <footer>
@@ -218,7 +358,6 @@
 <script type="text/javascript" src="{{STATIC_ASSETS_URL}}/js/tnthome/jquery-2.1.4.min.js" charset="UTF-8"></script>
 <script src="{{STATIC_ASSETS_URL}}/js/tnthome/main.js"></script>
 <script src="{{STATIC_ASSETS_URL}}/js/tnthome/index.js"></script>
-
 
 </body>
 </html>

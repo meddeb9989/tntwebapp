@@ -4,10 +4,11 @@
 
 {% block head %}
   {{ super() }}
-    <!-- FONT AWESOME STYLE  -->
-    <link href="{{STATIC_ASSETS_URL}}/css/dataTable/font-awesome.css" rel="stylesheet" />
     <!-- DATATABLE STYLE  -->
     <link href="{{STATIC_ASSETS_URL}}/js/dataTable/dataTables.bootstrap.css" rel="stylesheet" />
+        <!-- FONT AWESOME STYLE  -->
+    <link href="{{STATIC_ASSETS_URL}}/css/dataTable/font-awesome.css" rel="stylesheet" />
+
     <!-- CUSTOM STYLE  -->
     <link href="{{STATIC_ASSETS_URL}}/css/dataTable/style.css" rel="stylesheet" />
     <link href="{{STATIC_ASSETS_URL}}/css/dataTable/bootstrap.css" rel="stylesheet">
@@ -15,15 +16,10 @@
 
 {% block content %}
 
-      {% if solde %}
-        {% with username=user, userid=userid, search=False, search_text=search_text, solde=solde %}
-          {% include 'navebar.html' %}
-        {% endwith %}
-      {% else %}
+
         {% with username=user, userid=userid, search=False, search_text=search_text %}
           {% include 'navebar.html' %}
         {% endwith %}    
-      {% endif %}
 
 
 <body>
@@ -37,51 +33,94 @@
         </div>
              
              <div class="row">
-            
+               {% if usertype == "Employeur" %}
                  <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-info back-widget-set text-center">
                             <i class="fa fa-credit-card fa-5x"></i>
-                            <h3>{{solde}}&nbsp; <i class="fa fa-eur"></i></h3>
-                           Solde total dans votre carte
+                            <h3>{{MyCampainsList|length}}&nbsp;</h3>
+                             Cartes valides
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-danger back-widget-set text-center">
+                            <i class="fa fa-credit-card fa-5x"></i>
+                            <h3>Employeur </h3>
+                            Cartes non valides
                         </div>
                     </div>
               <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-success back-widget-set text-center">
                             <i class="fa fa-bars fa-5x"></i>
                             <h3>{{MyCampainsList|length}}</h3>
-                            Transactions Effectuées
+                            Recharge effectuées
                         </div>
                     </div>
                <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-warning back-widget-set text-center">
                             <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
                             <h3>100&nbsp; <i class="fa fa-eur"></i></h3>
-                           A venir chaque mois
+                           A virer dans N jours
+                        </div>
+                    </div>
+
+              {% else %}
+                 <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-info back-widget-set text-center">
+                            <i class="fa fa-credit-card fa-5x"></i>
+                            <h3>{{ solde }} <i class="fa fa-eur"></i></h3>
+                             Sur votre carte
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-success back-widget-set text-center">
+                            <i class="fa fa-bars fa-5x"></i>
+                            <h3>{{MyCampainsList|length}}</h3>
+                            Transactions effectuées
+                        </div>
+                    </div>
+              <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-warning back-widget-set text-center">
+                            <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
+                            <h3>{{MyCampainsList|length}} <i class="fa fa-eur"></i></h3>
+                            A venir chaque mois
                         </div>
                     </div>
                <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-danger back-widget-set text-center">
                             <i class="fa fa-home fa-5x"></i>
                             <h3>Employeur </h3>
-                            INSA LYON
+                           INSA LYON
                         </div>
                     </div>
+
+             {% endif %}
 
         </div>              
 
              <div class="row">
-
+                {% if usertype == "Employeur" %}
+                  {% if add_employe == True %}
+                     <div class="col-md-9 col-sm-9 col-xs-12">
+                  {% else %}
+                     <div class="col-md-12 col-sm-12 col-xs-12">
+                  {% endif %}
+                {% else %}
                   <div class="col-md-8 col-sm-8 col-xs-12">
-                                          <!-- Advanced Tables -->
+                {% endif %}
+                  
+                    <!-- Advanced Tables -->
                     <div class="panel panel-success">
                         <div class="panel-heading">
                              Liste des Transactions
                         </div>
                         <div class="panel-body">
+                        <form name="form" id="myForm" method="post" action="">
                          {% with usertype=usertype %}
                            {% include 'table1.html' with context %}
                          {% endwith %}
-
+                        </form> 
                             
                         </div>
                     </div>
@@ -90,30 +129,31 @@
             </div>
             {% if usertype == "Employeur" %}
 
+              {% if add_employe == True %}
 
-
-            <div class="row">
    
-                <div class="col-md-6">
+                <div class="col-md-3 col-sm-3 col-xs-12">
                      <div class="panel panel-info">
                         <div class="panel-heading">
-                            Ajouter un Employé
+                            Ajouter un employé
                         </div>
                         <div class="panel-body">
                             <form role="form">
                                   <div class="form-group">
                                       <label>Nom</label>
-                                      <input class="form-control" type="text" />
+                                      <input class="form-control" type="text" required autocomplete="off"/>
                                       <label>Prénom</label>
-                                      <input class="form-control" type="text" />
+                                      <input class="form-control" type="text" required autocomplete="off"/>
                                   </div>
 
                                  <div class="form-group">
-                                            <label>Enter Email</label>
-                                            <input class="form-control" type="text" />
+                                            <label>Email</label>
+                                            <input class="form-control" type="email" required autocomplete="off" />
                                         </div>
-                                       
-                                        
+                                  <div class="form-group">
+                                    <label>Recharge</label>
+                                    <input type="number" class="form-control" placeholder="Montant de la Recharge" name="amount" required maxlength=4 max=9999 min=1>
+                                 </div>
                                         <div class="form-group">
                                             <label>Type </label>
                                             <select class="form-control">
@@ -124,7 +164,7 @@
                                         </div>
                                         
                                        
-                                        <button type="submit" class="btn btn-success">Ajouter Employé </button>
+                                        <button type="submit" class="btn btn-success">Ajouter employé </button>
                                         <button type="reset" class="btn btn-warning">Annuler</button>
 
                                     </form>
@@ -132,21 +172,97 @@
                         </div>
                 </div>
 
-            </div>
-              {% else %}
+                    <!--  Modals-->
+                        <div class="panel-body">
+                            <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="text-center">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Recharge</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <hr />
+                                            <i class="fa fa-eur fa-4x"></i>
+                                              <p>
+                                               Enter le montant de la recharge :
+                                            </p>
+                                            <hr />
+                                            <input type="number" class="form-control" placeholder="Montant de la Recharge" name="amount" required maxlength=4 max=9999 min=1>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button"value="bloc" class="btn btn-warning" data-dismiss="modal">Annuler</button>
+                                            <button type="submit" name="btn" class="btn btn-success" >Confirmer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     <!-- End Modals-->
+
+                    
+                {% endif %}
+
+              {% elif usertype == "Employe"%}
+              {% if card_state == True %}
                <div class="col-md-4 col-sm-4 col-xs-12" >
                         <div class="alert alert-danger text-center">
                           <h3> Opposition de la carte</h3> 
                           <hr />
                             <i class="fa fa-warning fa-4x"></i>
                           <p>
-                           Une fois vous opposer votre carte vous devez recontacter votre Employeur pour demander une autre.
-                           Merci pour Votre compréhension.
+                           Une fois que votre carte est mise en opposition, vous devez contacter votre employeur pour en réclamer une nouvelle. <br><br>Merci de votre compréhension.
                         </p>
                           <hr />
-                           <a class="btn btn-danger" id="opposition_card">Opposer la carte</a> 
+                        <!--  Modals-->
+                        <div class="panel-body">
+                            <button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
+                                Mettre en opposition
+                            </button>
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Opposition de la carte</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <hr />
+                                            <i class="fa fa-warning fa-4x"></i>
+                                              <p>
+                                               Etes-vous sur de vouloir mettre en opposition cette carte ?
+                                            </p>
+                                              <hr />
+                                        </div>
+                                        <form name="form" id="myForm" method="post" action="">
+                                        <div class="modal-footer">
+                                            <button type="submit" name="btn" value="bloc" class="btn btn-danger">Confirmer</button>
+                                            <button type="button" class="btn btn-success" data-dismiss="modal">Annuler</button>
+                                        </div>
+                                        </form> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     <!-- End Modals-->
+                
                         </div>
                  </div>
+             {% else%}
+                 <div class="col-md-4 col-sm-4 col-xs-12" >
+                        <div class="alert alert-default text-center">
+                          <h3> Carte en opposition</h3> 
+                          <hr />
+                            <i class="fa fa-warning fa-4x"></i>
+                          <p>
+                           Vous ne pouvez plus utiliser votre carte. Veuillez contacter votre employeur pour en obtenir une nouvelle.
+                           Merci de votre compréhension.
+                        </p>
+                          <hr />
+                 </div>
+
+             {% endif %}
              {% endif %}
              
 
@@ -155,16 +271,6 @@
 {% endblock %}
 {% block script %}
 {{ super() }}
-<script>
-document.getElementById('opposition_card').onclick = function() {
-if (confirm("Voulez vous vraiment opposer votre carte ?\nUne fois votre carte opposée vous ne pouvez plus l'utiliser.")) {
-    // Save it!
-} else {
-    // Do nothing!
-}
-return false;
-}
-</script>
 <!-- DATATABLE SCRIPTS  -->
 <script src="{{STATIC_ASSETS_URL}}/js/dataTable/jquery.dataTables.js"></script>
 <script src="{{STATIC_ASSETS_URL}}/js/dataTable/dataTables.bootstrap.js"></script>

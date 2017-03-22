@@ -29,11 +29,11 @@
                       {
                         all[i].checked = true;
                        }
-                   else if (all[i].id.substring(0, 7) == "recharge_") 
+                   else if (all[i].id.substring(0, 9) == "recharge_") 
                       {
                         all[i].style.display = "none";
                       }
-                   else if (all[i].id.substring(0, 7) == "bloc_") 
+                   else if (all[i].id.substring(0, 5) == "bloc_") 
                       {
                        all[i].style.display = "none";
                       }
@@ -55,11 +55,11 @@
                        {
                         all[i].checked = false;
                        }
-                    else if (all[i].id.substring(0, 7) == "recharge_") 
+                    else if (all[i].id.substring(0, 9) == "recharge_") 
                       {
                         all[i].style.display = "";
                       }
-                   else if (all[i].id.substring(0, 7) == "bloc_") 
+                   else if (all[i].id.substring(0, 5) == "bloc_") 
                       {
                        all[i].style.display = "";
                       }

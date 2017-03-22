@@ -45,13 +45,13 @@
                     {
                       validity.color = "green";
                       color.className="success";
-                      validity.innerHTML = "Carte Valide";
+                      validity.innerHTML = "Valide";
                     }
                     else
                     {
                       validity.color = "orange";
                       color.className="warning";
-                      validity.innerHTML = "Transaction En Cours...";
+                      validity.innerHTML = "En Cours...";
                       
                     }
                     
@@ -63,13 +63,13 @@
                     {
                       validity.color = "red";
                       color.className="danger";
-                      validity.innerHTML = "Carte Expirée";
+                      validity.innerHTML = "Expirée";
                     }
                     else
                     {
                       validity.color = "green";
                       color.className="success";
-                      validity.innerHTML = "Transaction Effectuée";
+                      validity.innerHTML = "Effectuée";
                     }
                   }
                 else 
@@ -79,14 +79,14 @@
                     {
                       validity.color = "orange";
                       color.className="warning";
-                      validity.innerHTML = "Expire Bientot...";
+                      validity.innerHTML = "Bientot";
                     }
                     else
                     {
                       validity.color = "orange";
                       campain_name.color = "white";
                       color.className="warning";
-                      validity.innerHTML = "Transaction En Cours...";
+                      validity.innerHTML = "En Cours...";
                     }
                   }
 	  
