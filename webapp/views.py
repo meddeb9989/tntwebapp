@@ -205,7 +205,7 @@ def my_home_page(page, validation, search_text, user_type):
                         page = pages
 
                     response = render_template("home1.html",
-                                               add_employe=False,
+                                               add_employe=user['permission'],
                                                usertype=user_type,
                                                user=user['name'],
                                                userid=user['id'],
@@ -267,7 +267,7 @@ def my_home_page(page, validation, search_text, user_type):
                     page = pages
 
                 response = render_template("home1.html",
-                                           add_employe=True,
+                                           add_employe=user['permission'],
                                            usertype=user['group'],
                                            user=user['name'],
                                            userid=user['id'],
