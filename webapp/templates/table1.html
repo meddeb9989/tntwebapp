@@ -54,16 +54,23 @@
                             <td class="center">
                                  <font id="validity_{{campaininfo['id']}}" name="validity_for_{{campaininfo['id']}}"></font>
                             </td>
-                            <td>
+
+                                {% if campaininfo["valid_card"] == True %}
+                             <td>
                                  <button class="btn btn-xs btn-primary" type="submit" name="btn" id="recharge_{{campaininfo['id']}}" style="display:'';" value="recharge_{{campaininfo['id']}}"><span class="glyphicon glyphicon-euro"></span> Recharger </button>
                             </td>
-                            <td>
-                                {% if campaininfo["valid_card"] == True %}
+                                <td>
                                       <button class="btn btn-xs btn-danger" id="bloc_{{campaininfo['id']}}" style="display:'';" type="submit" name="btn" value="bloc_{{campaininfo['id']}}"><span class="glyphicon glyphicon-trash"></span> Déclarer  </button>
+                                </td>
                                 {% else %}
-                                      <button class="btn btn-xs btn-disabled" id="bloc_{{campaininfo['id']}}" style="display:'';" type="submit" name="btn" value="locked_{{campaininfo['id']}}"><span class="glyphicon glyphicon-remove"></span> Opposée </button>
-                                {% endif %}
+                            <td>
+                                 <button class="btn btn-xs btn-disabled" name="btn" id="recharge_{{campaininfo['id']}}" style="display:'';" value="recharge_{{campaininfo['id']}}" disabled><span class="glyphicon glyphicon-euro"></span> Recharger </button>
                             </td>
+                                <td>
+                                      <button class="btn btn-xs btn-disabled" id="bloc_{{campaininfo['id']}}" style="display:'';"  name="btn" value="locked_{{campaininfo['id']}}" disabled><span class="glyphicon glyphicon-remove"></span> Opposée </button>
+                                </td>
+                                {% endif %}
+                            
                         </tr>
                        {% endfor %}
 
