@@ -14,9 +14,10 @@ from user import User
 import json
 from requests.auth import HTTPDigestAuth
 
-app.website_url1="https://tntwebserver.herokuapp.com/"
-app.website_url="http://127.0.0.1:8000/"
+app.website_url="https://tntwebserver.herokuapp.com/"
+app.website_url1="http://127.0.0.1:8000/"
 app.token=None
+app.user_type=None
 
 @app.route('/')
 def index():
@@ -250,9 +251,9 @@ def my_home_page(page, validation, search_text, user_type):
                                                search_text=search_text,
                                                pagination_for=pagination_for,
                                                itemPerPage = paginate.itemPerPage)
-
                 else:
                     response = redirect("/view_choice/")
+                app.user_type=user_type
 
             elif user['group']==u'Employeur':
                 url=app.website_url+"cards/"
@@ -480,7 +481,11 @@ def confirm_bloc(ids):
                     for ids in deleteList:
                         url=app.website_url+"bloc_card_id/"+str(ids)
                         r=requests.get(url, headers={'Authorization': 'Token '+app.token})
-        response = redirect("/home/")
+
+        if app.user_type!=None:
+            response = redirect("/home/user_type="+app.user_type)
+        else:
+            response = redirect("/home/")
     else:
         response = redirect("/")
 
@@ -550,7 +555,10 @@ def confirm_recharge(ids):
                 r=requests.get(url, headers={'Authorization': 'Token '+app.token})
                 card = json.loads(r.text)
                 if card[0]['valid']:
-                    response = redirect("/home/")
+                    if app.user_type!=None:
+                        response = redirect("/home/user_type="+app.user_type)
+                    else:
+                        response = redirect("/home/")
                 else:
                     Errors.append(card[0])
                     response = render_template("ean13_add.html",
@@ -572,7 +580,10 @@ def confirm_recharge(ids):
                     else:
                         Errors.append(card[0])
                 if Errors == []:
-                    response = redirect("/home/")
+                    if app.user_type!=None:
+                        response = redirect("/home/user_type="+app.user_type)
+                    else:
+                        response = redirect("/home/")                
                 else:
                     response = render_template("ean13_add.html",
                                                    Errors=Errors,

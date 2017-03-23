@@ -140,31 +140,28 @@
                         <div class="panel-body">
                             <form role="form" name="form" id="myForm" method="post" action="">
                                   <div class="form-group">
-                                      <label>Nom</label>
-                                      <input class="form-control" name="first_name" type="text" required autocomplete="off"/>
-                                      <label>Prénom</label>
-                                      <input class="form-control" name="last_name" type="text" required autocomplete="off"/>
+                                      <input class="form-control" placeholder="Nom" name="first_name" type="text" required autocomplete="off"/>
+                                      
                                   </div>
 
-
+                                  <div class="form-group">
+                                    <input class="form-control" placeholder="Prénom" name="last_name" type="text" required autocomplete="off"/>
+                                  </div>
 
                                  <div class="form-group">
-                                            <label>Email</label>
-                                            <input class="form-control" name="email" type="email" required autocomplete="off" />
+                                            <input class="form-control" placeholder="Email" name="email" type="email" required autocomplete="off" />
                                         </div>
                                   <div class="form-group">
-                                    <label>Recharge</label>
-                                    <input type="number" class="form-control" placeholder="Montant de la Recharge" name="amount" required maxlength=4 max=9999 min=1>
+                                    <input type="number" class="form-control" placeholder="Montant de la recharge auto" name="amount" required maxlength=4 max=9999 min=1>
                                  </div>
                                         <div class="form-group">
-                                            <label>Type </label>
                                             <select class="form-control" name="type">
                                                 <option>Employé</option>
                                                 <option>Employé RH</option>
                                             </select>
 
                                         </div>
-                                        
+                                        <br><br>
                                         <button type="submit" name="btn" value="add_employe" class="btn btn-success">Ajouter employé </button>
                                         <button type="reset" class="btn btn-warning">Annuler</button>
                                     </form>
