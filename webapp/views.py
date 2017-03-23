@@ -14,7 +14,8 @@ from user import User
 import json
 from requests.auth import HTTPDigestAuth
 
-app.website_url="https://tntwebserver.herokuapp.com/"
+app.website_url1="https://tntwebserver.herokuapp.com/"
+app.website_url="http://127.0.0.1:8000/"
 app.token=None
 
 @app.route('/')
@@ -135,21 +136,8 @@ def view_choice():
 
 @app.route('/add_employe/', methods=['GET', 'POST'])
 def add_Employe():
-    if request.method == 'GET' and app.token!=None:
-        url=app.website_url+"user/"
-        r=requests.get(url, headers={'Authorization': 'Token '+app.token})
-        user=json.loads(r.text)[0]
-        if user['valid']:
-            username = user['name']
-            response = render_template("add_employe.html")
-        else:
-            response = redirect("/signout/")
-    elif request.method == 'POST' and app.token!=None:
-      pass
-    else:
-        response = redirect("/signout/")
 
-    return response
+    return render_template("add_employe_success.html")
 
 @app.route('/profile/', methods=['GET', 'POST'])
 def user_Profile():
@@ -381,6 +369,27 @@ def my_home_page(page, validation, search_text, user_type):
                 response = redirect("/home/user_type="+user_type)
             else:
                 response = redirect("/home/")
+        elif request.form['btn'] == 'add_employe':
+            first_name = request.form['first_name']
+            last_name = request.form['last_name']
+            email = request.form['email']
+            amount = request.form['amount']
+            type_emp = request.form['type']
+            if 'RH' in type_emp:
+                type_emp = 'rh'
+            else:
+                type_emp = 'emp'
+
+            url=app.website_url+"create_emp/"
+            data={"first_name": first_name, "last_name": last_name, "type": type_emp, "email": email, "amount": amount}
+            r=requests.get(url, data=data, headers={'Authorization': 'Token '+app.token})
+            valid=json.loads(r.text)[0]
+
+            if valid['valid']:
+                response = redirect("/add_employe/")
+            else:
+                response = redirect("/home/")
+
         elif request.form['btn'].startswith("bloc"):
             if s == "":
                 s = request.form['btn'].split("_")[1]+";"
@@ -578,54 +587,3 @@ def confirm_recharge(ids):
 
     return response
 
-@app.route('/campain/add/ean13', methods=['GET', 'POST'])
-def detect_ean13():
-    logged, response = login_campain.login_test(session_manager)
-    if request.method == 'GET':
-        if logged:
-            user = user_manager.get_user_by_ID(int(session_manager.get_session_user_id()))
-            response = render_template("ean13_add.html", user=user, display="none")
-    else:
-        if logged:
-            fields = {}
-            fields["ean13"] = str(request.form['ean13'])
-            user = user_manager.get_user_by_ID(int(session_manager.get_session_user_id()))
-
-            Errors = {}
-            ean13 = fields["ean13"]
-            validatefields = ValidateFields(fields)
-            Errors = validatefields.Validate()
-
-            if len(Errors) == 0:
-                Errors = crud.valid_ean13(ean13)
-
-                if len(Errors) == 0:
-                    Errors = crud.valid_not_exist(ean13)
-
-                    if len(Errors) == 0:
-                        response = redirect("/campain/add/ean13="+fields["ean13"])
-
-                    else:
-                        response = render_template("ean13_add.html",
-                                                   Errors=Errors,
-                                                   user=user,
-                                                   ean13=ean13,
-                                                   style="",
-                                                   fields=fields)
-                else:
-                    response = render_template("ean13_add.html",
-                                               Errors=Errors,
-                                               user=user,
-                                               ean13=ean13,
-                                               style="none",
-                                               fields=fields)
-                
-            else:
-                response = render_template("ean13_add.html",
-                                           Errors=Errors,
-                                           user=user,
-                                           ean13=ean13,
-                                           style="none",
-                                           fields=fields)
-
-    return response
