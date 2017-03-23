@@ -14,8 +14,8 @@ from user import User
 import json
 from requests.auth import HTTPDigestAuth
 
-app.website_url1="https://tntwebserver.herokuapp.com/"
-app.website_url="http://127.0.0.1:8000/"
+app.website_url="https://tntwebserver.herokuapp.com/"
+app.website_url1="http://127.0.0.1:8000/"
 app.token=None
 app.user_type=None
 
