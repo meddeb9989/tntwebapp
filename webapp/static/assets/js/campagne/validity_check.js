@@ -26,7 +26,6 @@
        {
                validity = document.getElementById("validity_"+all[i].id.substring(5));
                campain_name = document.getElementById("campain_name_"+all[i].id.substring(5));
-               color = document.getElementById("color_"+all[i].id.substring(5));
 
 
                begin = document.getElementById("Date_"+all[i].id.substring(5)).value.split(" ");
@@ -44,13 +43,11 @@
                     if (usertype.id=="usertype_Employeur")
                     {
                       validity.color = "green";
-                      color.className="success";
                       validity.innerHTML = "Valide";
                     }
                     else
                     {
                       validity.color = "orange";
-                      color.className="warning";
                       validity.innerHTML = "En Cours...";
                       
                     }
@@ -62,13 +59,11 @@
                     if (usertype.id=="usertype_Employeur")
                     {
                       validity.color = "red";
-                      color.className="danger";
                       validity.innerHTML = "Expirée";
                     }
                     else
                     {
                       validity.color = "green";
-                      color.className="success";
                       validity.innerHTML = "Effectuée";
                     }
                   }
@@ -78,14 +73,12 @@
                     if (usertype.id=="usertype_Employeur")
                     {
                       validity.color = "orange";
-                      color.className="warning";
                       validity.innerHTML = "Bientot";
                     }
                     else
                     {
                       validity.color = "orange";
                       campain_name.color = "white";
-                      color.className="warning";
                       validity.innerHTML = "En Cours...";
                     }
                   }

@@ -19,7 +19,6 @@ class Paginate():
 
         if search_text=="":
             for transac in table:
-                print transac
                 MyList[str(transac['id']+j)] = transac
                 j=j+1
             i = len(table)

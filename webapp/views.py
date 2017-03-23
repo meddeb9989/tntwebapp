@@ -14,8 +14,8 @@ from user import User
 import json
 from requests.auth import HTTPDigestAuth
 
-app.website_url="https://tntwebserver.herokuapp.com/"
-app.website_url1="http://127.0.0.1:8000/"
+app.website_url1="https://tntwebserver.herokuapp.com/"
+app.website_url="http://127.0.0.1:8000/"
 app.token=None
 app.user_type=None
 
@@ -199,6 +199,10 @@ def my_home_page(page, validation, search_text, user_type):
                     cartes=json.loads(r.text)
                     del cartes[0]
 
+                    url=app.website_url+"get_employe_header/"
+                    r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                    header=json.loads(r.text)
+
                     paginate = Paginate(5)
                     Mylist, pages = paginate.getListAndPages(cartes, page, search_text)
                 
@@ -206,6 +210,8 @@ def my_home_page(page, validation, search_text, user_type):
                         page = pages
 
                     response = render_template("home1.html",
+                                               header_look='rh',
+                                               header=header[0],
                                                add_employe=user['permission'],
                                                usertype=user_type,
                                                user=user['name'],
@@ -223,6 +229,10 @@ def my_home_page(page, validation, search_text, user_type):
                     r=requests.get(url, headers={'Authorization': 'Token '+app.token})
                     transactions=json.loads(r.text)
                     del transactions[0]
+
+                    url=app.website_url+"get_employe_header/"
+                    r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                    header=json.loads(r.text)
     
                     url=app.website_url+"amount/"
                     r=requests.get(url, headers={'Authorization': 'Token '+app.token})
@@ -239,6 +249,7 @@ def my_home_page(page, validation, search_text, user_type):
                         page = pages
     
                     response = render_template("home1.html",
+                                               header=header[0],
                                                usertype=user_type,
                                                user=user['name'],
                                                userid=user['id'],
@@ -261,6 +272,10 @@ def my_home_page(page, validation, search_text, user_type):
                 cartes=json.loads(r.text)
                 del cartes[0]
 
+                url=app.website_url+"get_employeur_header/"
+                r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                header=json.loads(r.text)
+
                 paginate = Paginate(5)
                 Mylist, pages = paginate.getListAndPages(cartes, page, search_text)
                 
@@ -268,6 +283,8 @@ def my_home_page(page, validation, search_text, user_type):
                     page = pages
 
                 response = render_template("home1.html",
+                                           header_look='employeur',
+                                           header=header[0],
                                            add_employe=user['permission'],
                                            usertype=user['group'],
                                            user=user['name'],
@@ -286,6 +303,10 @@ def my_home_page(page, validation, search_text, user_type):
                 transactions=json.loads(r.text)
                 del transactions[0]
 
+                url=app.website_url+"get_employe_header/"
+                r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                header=json.loads(r.text)
+
                 url=app.website_url+"amount/"
                 r=requests.get(url, headers={'Authorization': 'Token '+app.token})
                 solde=json.loads(r.text)[0]['amount']
@@ -301,6 +322,7 @@ def my_home_page(page, validation, search_text, user_type):
                     page = pages
 
                 response = render_template("home1.html",
+                                           header=header[0],
                                            usertype=user['group'],
                                            user=user['name'],
                                            userid=user['id'],
@@ -319,13 +341,18 @@ def my_home_page(page, validation, search_text, user_type):
                 transactions=json.loads(r.text)
                 del transactions[0]
 
+                url=app.website_url+"get_trader_header/"
+                r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                header=json.loads(r.text)
+
                 paginate = Paginate(5)
                 Mylist, pages = paginate.getListAndPages(transactions, page, search_text)
 
                 if pages < page:
                     page = pages
-
+                print user['type']
                 response = render_template("home1.html",
+                                           header=header[0],
                                            usertype=user['type'],
                                            user=user['name'],
                                            userid=user['id'],

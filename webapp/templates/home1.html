@@ -34,10 +34,11 @@
              
              <div class="row">
                {% if usertype == "Employeur" %}
+                {% if header_look == "employeur" %}
                  <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-info back-widget-set text-center">
                             <i class="fa fa-credit-card fa-5x"></i>
-                            <h3>{{MyCampainsList|length}}&nbsp;</h3>
+                            <h3>{{header['h1']}}&nbsp;</h3>
                              Cartes valides
                         </div>
                     </div>
@@ -45,53 +46,120 @@
                     <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-danger back-widget-set text-center">
                             <i class="fa fa-credit-card fa-5x"></i>
-                            <h3>Employeur </h3>
+                            <h3>{{header['h2']}} </h3>
                             Cartes non valides
                         </div>
                     </div>
               <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-success back-widget-set text-center">
                             <i class="fa fa-bars fa-5x"></i>
-                            <h3>{{MyCampainsList|length}}</h3>
+                            <h3>{{header['h3']}}</h3>
                             Recharge effectuées
                         </div>
                     </div>
                <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-warning back-widget-set text-center">
                             <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
-                            <h3>100&nbsp; <i class="fa fa-eur"></i></h3>
-                           A virer dans N jours
+                            <h3>{{header['h4']}}&nbsp; <i class="fa fa-eur"></i></h3>
+                           A virer à la fin du mois
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-info back-widget-set text-center">
+                            <i class="fa fa-credit-card fa-5x"></i>
+                            <h3>{{header['h1']}} <i class="fa fa-eur"></i></h3>
+                             Sur votre carte
                         </div>
                     </div>
 
-              {% else %}
-                 <div class="col-md-3 col-sm-3 col-xs-6">
-                      <div class="alert alert-info back-widget-set text-center">
-                            <i class="fa fa-credit-card fa-5x"></i>
-                            <h3>{{ solde }} <i class="fa fa-eur"></i></h3>
-                             Sur votre carte
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-warning back-widget-set text-center">
+                            <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
+                            <h3>{{header['h3']}}<i class="fa fa-eur"></i></h3>
+                            A venir chaque mois
                         </div>
                     </div>
 
                     <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-success back-widget-set text-center">
                             <i class="fa fa-bars fa-5x"></i>
-                            <h3>{{MyCampainsList|length}}</h3>
+                            <h3>{{header['h2']}}</h3>
                             Transactions effectuées
                         </div>
                     </div>
-              <div class="col-md-3 col-sm-3 col-xs-6">
-                      <div class="alert alert-warning back-widget-set text-center">
-                            <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
-                            <h3>{{MyCampainsList|length}} <i class="fa fa-eur"></i></h3>
-                            A venir chaque mois
-                        </div>
-                    </div>
+              
                <div class="col-md-3 col-sm-3 col-xs-6">
                       <div class="alert alert-danger back-widget-set text-center">
                             <i class="fa fa-home fa-5x"></i>
                             <h3>Employeur </h3>
-                           INSA LYON
+                           {{header['h4']}}
+                        </div>
+                    </div>
+                {% endif %}
+
+              {% elif usertype == "Employe" %}
+                 <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-info back-widget-set text-center">
+                            <i class="fa fa-credit-card fa-5x"></i>
+                            <h3>{{header['h1']}} <i class="fa fa-eur"></i></h3>
+                             Sur votre carte
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-warning back-widget-set text-center">
+                            <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
+                            <h3>{{header['h3']}}<i class="fa fa-eur"></i></h3>
+                            A venir chaque mois
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-success back-widget-set text-center">
+                            <i class="fa fa-bars fa-5x"></i>
+                            <h3>{{header['h2']}}</h3>
+                            Transactions effectuées
+                        </div>
+                    </div>
+              
+               <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-danger back-widget-set text-center">
+                            <i class="fa fa-home fa-5x"></i>
+                            <h3>Employeur </h3>
+                           {{header['h4']}}
+                        </div>
+                    </div>
+             {% else %}
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-info back-widget-set text-center">
+                            <i class="fa fa-credit-card fa-5x"></i>
+                            <h3>{{header['h1']}}<i class="fa fa-eur"></i></h3>
+                             Total reçus
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-warning back-widget-set text-center">
+                            <i class="fa fa-refresh fa-spin fa-5x fa-fw"></i>
+                            <h3>{{header['h2']}}<i class="fa fa-eur"></i></h3>
+                            Total à venir
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-success back-widget-set text-center">
+                            <i class="fa fa-bars fa-5x"></i>
+                            <h3>{{header['h3']}}</h3>
+                            Transactions effectuées
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3 col-xs-6">
+                      <div class="alert alert-danger back-widget-set text-center">
+                            <i class="fa fa-users fa-5x"></i>
+                            <h3>{{header['h4']}}</h3>
+                           Clients AVENTIX
                         </div>
                     </div>
 
@@ -106,14 +174,20 @@
                   {% else %}
                      <div class="col-md-12 col-sm-12 col-xs-12">
                   {% endif %}
-                {% else %}
+                {% elif usertype == "Employe" %}
                   <div class="col-md-8 col-sm-8 col-xs-12">
+                {% else %}
+                  <div class="col-md-12 col-sm-12 col-xs-12">
                 {% endif %}
                   
                     <!-- Advanced Tables -->
                     <div class="panel panel-success">
                         <div class="panel-heading">
-                             Liste des Transactions
+                            {% if usertype == "Employeur" %}
+                             Liste des employés
+                            {% else %}
+                             Liste des transactions
+                            {% endif %}
                         </div>
                         <div class="panel-body">
                         <form name="form" id="myForm" method="post" action="">
@@ -172,7 +246,7 @@
                     
                 {% endif %}
 
-              {% elif usertype == "Employe"%}
+              {% elif usertype == "Employe" %}
               {% if card_state == True %}
                <div class="col-md-4 col-sm-4 col-xs-12" >
                         <div class="alert alert-danger text-center">

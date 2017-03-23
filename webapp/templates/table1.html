@@ -77,7 +77,11 @@
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
+                                            {% if usertype == "Employe" %}
                                             <th>Restaurant</th>
+                                            {% else %}
+                                            <th>Client</th>
+                                            {% endif %}
                                             <th>Date</th>
                                             <th>Montant</th>
                                             <th>Etat</th>
@@ -99,7 +103,12 @@
                                                 <input type="hidden" name="Date" id="Date_{{campainid}}" value="{{campaininfo['Date']}}" style="">
                                             </td>
                                             <td class="center">€{{campaininfo["Montant"]}} EUR</td>
-                                            <td class="center"><font id="validity_{{ campainid }}" name="validity_for_{{campainid}}" style="" ></font></td>
+
+                                            {% if campaininfo["confirmed"] == True %}
+                                            <td class="center"><font name="validity_for_{{campainid}}" style="color:green;" >Effectuée</font></td>
+                                            {% else %}
+                                            <td class="center"><font name="validity_for_{{campainid}}" style="color:orange;" >En cours...</font></td>
+                                            {% endif %}
                                         </tr>
                                     {% endfor %}
                                     </tbody>
