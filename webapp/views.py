@@ -79,7 +79,7 @@ def signin():
                 else:
                     admin_token = token[u'token']
                     url=app.website_url+"create_user/"
-                    data={"username": username, "first_name": first_name, "last_name": last_name, "type": select, "email": email, "password": new_password}
+                    data={"username": username, "first_name": last_name, "last_name": first_name, "type": select, "email": email, "password": new_password}
                     r=requests.get(url, data=data, headers={'Authorization': 'Token '+ admin_token})
                     valid=json.loads(r.text)[0]
 
@@ -409,7 +409,7 @@ def my_home_page(page, validation, search_text, user_type):
                 type_emp = 'emp'
 
             url=app.website_url+"create_emp/"
-            data={"first_name": first_name, "last_name": last_name, "type": type_emp, "email": email, "amount": amount}
+            data={"first_name": last_name, "last_name": first_name, "type": type_emp, "email": email, "amount": amount}
             r=requests.get(url, data=data, headers={'Authorization': 'Token '+app.token})
             valid=json.loads(r.text)[0]
 
