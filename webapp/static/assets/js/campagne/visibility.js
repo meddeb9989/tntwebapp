@@ -37,6 +37,10 @@
                       {
                        all[i].style.display = "none";
                       }
+                  else if (all[i].id.substring(0, 11) == "permission_") 
+                      {
+                       all[i].style.display = "none";
+                      }
                   }
                 k=count_checked(all);
                 if(k==2){
@@ -63,6 +67,10 @@
                       {
                        all[i].style.display = "";
                       }
+                   else if (all[i].id.substring(0, 11) == "permission_") 
+                      {
+                       all[i].style.display = "";
+                      }
                   }
                 Export_All_btn.style.display = "none" ;
                 Delete_All_btn.style.display = "none" ;
@@ -80,7 +88,8 @@
                                          {
                                              id_num = all[i].id.substring(9);
                                              document.getElementById("recharge_"+id_num).style.display = "none";
-                                             document.getElementById("bloc_"+id_num).style.display = "none";  
+                                             document.getElementById("bloc_"+id_num).style.display = "none";
+                                             document.getElementById("permission_"+id_num).style.display = "none";   
                                           }
                                   }
                                Export_All_btn.style.display = "" ; 
@@ -94,7 +103,8 @@
                                          {
                                              id_num = all[i].id.substring(9);
                                              document.getElementById("recharge_"+id_num).style.display = "none";
-                                             document.getElementById("bloc_"+id_num).style.display = "none";  
+                                             document.getElementById("bloc_"+id_num).style.display = "none"; 
+                                             document.getElementById("permission_"+id_num).style.display = "none";  
                                           }
                                   }
                                Export_All_btn.style.display = "" ; 
@@ -110,12 +120,14 @@
                                              {  
                                                  id_num = all[i].id.substring(9);
                                                  document.getElementById("recharge_"+id_num).style.display = "none";
-                                                 document.getElementById("bloc_"+id_num).style.display = "none"; 
+                                                 document.getElementById("bloc_"+id_num).style.display = "none";
+                                                 document.getElementById("permission_"+id_num).style.display = "none";  
                                               }
                                       }
                                     id_num = thisId.substring(9);
                                     document.getElementById("recharge_"+id_num).style.display = "";
                                     document.getElementById("bloc_"+id_num).style.display = ""; 
+                                    document.getElementById("permission_"+id_num).style.display = ""; 
 
                                   }
 
@@ -131,18 +143,21 @@
                                                     if (all[i].checked)
                                                       {
                                                         document.getElementById("recharge_"+id_num).style.display = "";
-                                                         document.getElementById("bloc_"+id_num).style.display = "";  
+                                                         document.getElementById("bloc_"+id_num).style.display = ""; 
+                                                         document.getElementById("permission_"+id_num).style.display = "";  
                                                       }
                                                     else 
                                                       {
                                                          document.getElementById("recharge_"+id_num).style.display = "none";
                                                          document.getElementById("bloc_"+id_num).style.display = "none"; 
+                                                         document.getElementById("permission_"+id_num).style.display = "none"; 
                                                       }
                                                   }
                                                else
                                                   {
                                                     document.getElementById("recharge_"+id_num).style.display = "";
                                                     document.getElementById("bloc_"+id_num).style.display = "";  
+                                                    document.getElementById("permission_"+id_num).style.display = ""; 
                                                   }  
                                                  
 

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Page{% endblock %}
+
+{% block head %}
+  {{ super() }}
+    <link href="{{STATIC_ASSETS_URL}}/css/bootstrap.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+        {% with username=user.login, userid=user.id, search=False %}
+        {% include 'navebar.html' %}
+        {% endwith %}
+
+   <form method="post" action="">
+    <br><br><br><br><br><br>
+      {% if campainList== [] %}
+       <div class="container">
+         <h2 style="color:black;">Accoder la permission d'ajout d'employé à :  </h2>
+         <h5 style="color:black;"> - {{campainName}}</h5>
+       </div>
+      {% else %}
+         <div class="container">
+           <h2 style="color:black;">Accoder la permission d'ajout d'employé à :  </h2>
+            {% for name in campainList %}
+              <h5 style="color:black;"> - {{name}}</h5>
+            {% endfor %}
+         </div>
+       {% endif %}  
+       <div class="container"><br><br><br></div>
+
+       <div class="container">
+
+         <div class="col-lg-3"><br></div>
+         <div class="col-lg-3"><br></div>
+         <div class="col-lg-2"><br></div>
+
+         <div class="col-lg-4">
+           <button class="btn btn-danger" type="submit" name="btn" value="doDelete">Confirmer</button>
+           <button class="btn btn-success" type="submit" name="btn" value="doNotDelete">Annuler</button>
+         </div>
+
+       </div>
+       
+   </form>
+
+{% endblock %}

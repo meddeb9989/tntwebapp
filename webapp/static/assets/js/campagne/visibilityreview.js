@@ -37,6 +37,8 @@
                       {
                        all[i].style.display = "none";
                       }
+
+                      
                   }
                 k=count_checked(all);
                 if(k==2){

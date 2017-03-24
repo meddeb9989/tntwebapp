@@ -21,6 +21,9 @@
                              <th>Validité</th>
                              <th>Recharge</th>
                              <th>Opposition</th>
+                             {% if header_look == "employeur" %}
+                             <th>Permissions</th>
+                             {% endif %}
                          </tr>
                      </thead>
 
@@ -34,9 +37,9 @@
                            <td>
                               <label>
                                 <input type="checkbox" name="checkfor_{{campaininfo['id']}}" onchange="javascript:visibilite(this.id); return false;" id="checkbox_{{campaininfo['id']}}">
-                                <a size="18"> 
-                                    <font id="campain_name_{{campaininfo['id']}}">
-                                        <h8 style="">{{campaininfo["Nom"]}}</h8>
+                                <a > 
+                                    <font style="font-size:0.83em" id="campain_name_{{campaininfo['id']}}">
+                                        {{campaininfo["Nom"]}}
                                     </font>
                                 </a>
                               </label>
@@ -69,6 +72,21 @@
                                 <td>
                                       <button class="btn btn-xs btn-disabled" id="bloc_{{campaininfo['id']}}" style="display:'';"  name="btn" value="locked_{{campaininfo['id']}}" disabled><span class="glyphicon glyphicon-remove"></span> Opposée </button>
                                 </td>
+                                {% endif %}
+
+                                {% if campaininfo["add_permission"] == True %}
+                                <td>
+                                {% if campaininfo["rh_group"] == True %}
+                                {% if campaininfo["had_permission"] == True %}
+                                 <button class="btn btn-xs btn-warning" type="submit" name="btn" id="permission_{{campaininfo['id']}}" style="display:'';" value="permission_{{campaininfo['id']}}" disabled> Accordées</button>
+                                {% else %}
+                                <button class="btn btn-xs btn-success" type="submit" name="btn" id="permission_{{campaininfo['id']}}" style="display:'';" value="permission_{{campaininfo['id']}}" > +  Ajouter &nbsp; </button>
+                                {% endif %}
+                                {% else %}
+                                <button class="btn btn-xs btn-disabled" type="submit" name="btn" id="permission_{{campaininfo['id']}}" style="display:'';" value="permission_{{campaininfo['id']}}" disabled>Pas un RH</button>
+                                {% endif %}
+                                </td>
+
                                 {% endif %}
                             
                         </tr>

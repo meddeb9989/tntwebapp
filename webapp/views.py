@@ -436,6 +436,15 @@ def my_home_page(page, validation, search_text, user_type):
             else:
                 response = redirect("/confirm_bloc="+s)
 
+        elif request.form['btn'].startswith("permission"):
+            if s == "":
+                s = request.form['btn'].split("_")[1]+";"
+                response = redirect("/permission_bloc="+s)
+
+            else:
+                response = redirect("/permission_bloc="+s)
+
+
         elif request.form['btn'].startswith("recharge"):
             if s == "":
                 s = request.form['btn'].split("_")[1]+";"
@@ -517,6 +526,81 @@ def confirm_bloc(ids):
                 else:
                     for ids in deleteList:
                         url=app.website_url+"bloc_card_id/"+str(ids)
+                        r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+
+        if app.user_type!=None:
+            response = redirect("/home/user_type="+app.user_type)
+        else:
+            response = redirect("/home/")
+    else:
+        response = redirect("/")
+
+    return response
+
+@app.route('/permission_bloc=<ids>', methods=['GET', 'POST'])
+def permission_bloc(ids):
+    if request.method == 'GET' and app.token!=None:
+        url=app.website_url+"user/"
+        r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+        user=json.loads(r.text)[0]
+
+        if user['valid']:
+            deleteList = ids.split(";")
+            nameList = []
+            if "" in deleteList:
+                deleteList.remove("")
+            name = ""
+
+            if len(deleteList) == 1:
+                url=app.website_url+"get_card/"+str(deleteList[0])
+                r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                card=json.loads(r.text)
+                if card[0]['valid']:
+                    name = card[1]['Nom']
+                    response = render_template("add_permission.html",
+                                               usertype=user['type'],
+                                               user=user['name'],
+                                               userid=user['id'],
+                                               campainName=name,
+                                               campainList=nameList)
+                else:
+                    response = redirect("/")
+            else:
+                for ids in deleteList:
+                    url=app.website_url+"get_card/"+str(ids)
+                    r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                    card=json.loads(r.text)
+                    print card
+                    if card[0]['valid']:
+                        name = card[1]['Nom']
+                        nameList.append(name)
+
+                response = render_template("add_permission.html",
+                                           usertype=user['type'],
+                                           user=user['name'],
+                                           userid=user['id'],
+                                           campainName=name,
+                                           campainList=nameList)
+                
+        else:
+            response = redirect("/")
+
+    elif request.method == 'POST' and app.token!=None:
+        url=app.website_url+"user/"
+        r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+        user=json.loads(r.text)[0]
+
+        if user['valid']:
+            if request.form['btn'] == "doDelete":
+                deleteList = ids.split(";")
+                if "" in deleteList:
+                    deleteList.remove("")
+                if len(deleteList) == 1:
+                    url=app.website_url+"add_permission_id/"+str(deleteList[0])
+                    r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                else:
+                    for ids in deleteList:
+                        url=app.website_url+"add_permision_id/"+str(ids)
                         r=requests.get(url, headers={'Authorization': 'Token '+app.token})
 
         if app.user_type!=None:
