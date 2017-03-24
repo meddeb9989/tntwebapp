@@ -407,11 +407,10 @@ def my_home_page(page, validation, search_text, user_type):
             amount = request.form['amount']
             type_emp = request.form['type']
 
-            monthly = False
+            monthly = "False"
             
             if 'monthly' in request.form:
-                print 'monthly'
-                monthly = True
+                monthly = "True"
 
             if 'RH' in type_emp:
                 type_emp = 'rh'
@@ -672,10 +671,9 @@ def confirm_recharge(ids):
             if "" in rechargeList:
                 rechargeList.remove("")
 
-            monthly = False
+            monthly = "False"
             if 'monthly' in request.form:
-                print 'monthly'
-                monthly = True
+                monthly = "True"
 
             data={"valid": True, "monthly": monthly}
 
