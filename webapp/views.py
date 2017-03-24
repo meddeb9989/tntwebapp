@@ -123,7 +123,7 @@ def view_choice():
         user=json.loads(r.text)[0]
         if user['valid']:
           if u'&' in user['group']:
-              response = render_template("choice.html")
+              response = render_template("choice.html", user=user['name'])
           else:
               response = redirect("/home/")
         
