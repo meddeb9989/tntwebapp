@@ -137,8 +137,11 @@ def view_choice():
 
 @app.route('/add_employe/', methods=['GET', 'POST'])
 def add_Employe():
-
     return render_template("add_employe_success.html")
+
+@app.route('/account_valid/', methods=['GET', 'POST'])
+def account_valid():
+    return render_template("account_activated.html")
 
 @app.route('/profile/', methods=['GET', 'POST'])
 def user_Profile():
@@ -403,13 +406,20 @@ def my_home_page(page, validation, search_text, user_type):
             email = request.form['email']
             amount = request.form['amount']
             type_emp = request.form['type']
+
+            monthly = False
+            
+            if 'monthly' in request.form:
+                print 'monthly'
+                monthly = True
+
             if 'RH' in type_emp:
                 type_emp = 'rh'
             else:
                 type_emp = 'emp'
 
             url=app.website_url+"create_emp/"
-            data={"first_name": last_name, "last_name": first_name, "type": type_emp, "email": email, "amount": amount}
+            data={"first_name": last_name, "last_name": first_name, "type": type_emp, "email": email, "amount": amount, "monthly": monthly}
             r=requests.get(url, data=data, headers={'Authorization': 'Token '+app.token})
             valid=json.loads(r.text)[0]
 
@@ -577,9 +587,18 @@ def confirm_recharge(ids):
             Errors = []
             if "" in rechargeList:
                 rechargeList.remove("")
+
+            monthly = False
+            if 'monthly' in request.form:
+                print 'monthly'
+                monthly = True
+
+            data={"valid": True, "monthly": monthly}
+
             if len(rechargeList) == 1:
-                url=app.website_url+"recharge_card/"+str(rechargeList[0])+"/"+amount
-                r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+
+                url=app.website_url+"recharge_card/"+str(rechargeList[0])+"/"+amount+"/"+str(monthly)+"/"
+                r=requests.get(url, headers={'Authorization': 'Token '+app.token}, data=data)
                 card = json.loads(r.text)
                 if card[0]['valid']:
                     if app.user_type!=None:
@@ -599,8 +618,8 @@ def confirm_recharge(ids):
             else:
                 Errors = []
                 for ids in rechargeList:
-                    url=app.website_url+"recharge_card/"+str(ids)+"/"+amount
-                    r=requests.get(url, headers={'Authorization': 'Token '+app.token})
+                    url=app.website_url+"recharge_card/"+str(ids)+"/"+amount+"/"+str(monthly)+"/"
+                    r=requests.get(url, headers={'Authorization': 'Token '+app.token}, data=data)
                     card = json.loads(r.text)
                     if card[0]['valid']:
                         pass

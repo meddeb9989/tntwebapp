@@ -44,16 +44,17 @@
                           <div class="form-group">
                               <div class="row">
                                   <div class="col-xs-6 col-sm-4">
-
+                              <input type="checkbox" name="monthly" value="monthly" checked>  Tous les mois
                               {% if ean13 %} 
-                               <input type="number" class="form-control" placeholder="Montant de la Recharge" name="amount"  value="{{ean13}}" required maxlength=4 max=9999 min=1>
+                               <input type="number" class="form-control" placeholder="Montant de la Recharge" name="amount"  value="{{ean13}}" required maxlength=4 max=9999 min=0>
                               {% else %}
-                               <input type="number" class="form-control" placeholder="Montant de la Recharge" name="amount" required maxlength=4 max=9999 min=1>
+                               <input type="number" class="form-control" placeholder="Montant de la Recharge" name="amount" required maxlength=4 max=9999 min=0>
                               {% endif %}
                                     
 
                                   </div>
                                   <div class="col-xs-6 col-sm-4">
+                                    <br>
                                       <button type="submit" name="btn" class="btn btn-success btn-block">
                                         <span class="glyphicon glyphicon-saved"></span>&nbsp;&nbsp;Valider</button>
                                   </div>
