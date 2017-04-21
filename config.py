@@ -25,7 +25,7 @@ DB_File = SQLALCHEMY_DATABASE_URI
 engine = create_engine(DB_File)
 
 
-
+STATIC_FOLDER = os.path.join(_appdir, "static")
 STATIC_ASSETS_FOLDER = os.path.join(_appdir, "static", "assets")
 STATIC_IMAGES_FOLDER = os.path.join(_appdir, "static", "media", "images")
 IMAGES_FILE_PATH = os.path.join(_appdir, "static", "media", "images")

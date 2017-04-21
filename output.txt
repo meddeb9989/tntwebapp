@@ -1,0 +1,18 @@
+
+manual_conf : on
+description : fefe
+signcond_1 : fefe
+first_group_1 : fefe
+not_spec : on
+final_date : 
+command_type : Commande
+btn : ok
+odatcond_1 : fefe
+name_quant_1 : fefe
+value_var_1 : fefe
+conditiontitle_1 : IN
+begin_date : 
+name_var_1 : fefe
+command_line : fefe
+planning_days : Dimanche
+job_name : fefe

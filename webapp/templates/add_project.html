@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Control-M</title>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="../static/admin/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- MetisMenu CSS -->
+        <link href="../static/admin/css/metisMenu.min.css" rel="stylesheet">
+
+        <!-- Timeline CSS -->
+        <link href="../static/admin/css/timeline.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="../static/admin/css/startmin.css" rel="stylesheet">
+
+        <!-- Morris Charts CSS -->
+        <link href="../static/admin/css/morris.css" rel="stylesheet">
+
+        <!-- Style CSS -->
+        <link href="../static/admin/css/addform/style.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="../static/admin/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+       
+        <!-- DATATABLE STYLE  -->
+        <link href="../static/assets/js/dataTable/dataTables.bootstrap.css" rel="stylesheet" />
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+
+        <div id="wrapper">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Atos</a>
+                </div>
+
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <ul class="nav navbar-nav navbar-left navbar-top-links">
+                    <li><a href="#"><i class="fa fa-home fa-fw"></i> Website</a></li>
+                </ul>
+
+                <ul class="nav navbar-right navbar-top-links">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"></i> User <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <!-- /.navbar-top-links -->
+
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li class="sidebar-search">
+                                <div class="input-group custom-search-form">
+                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                </span>
+                                </div>
+                                <!-- /input-group -->
+                            </li>
+                            <li>
+                                <a href="/admin/" class="active"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord </a>
+                            </li>
+
+                            <li>
+                                <a href="/admin/"><i class="fa fa-table fa-fw"></i> Projets </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header"> Nouveau projet </h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+                
+    <div class="row">
+     <div class='panel panel-success dialog-panel'>
+      <div class='panel-heading'>
+        <h5>Créer un nouveau projet</h5>
+      </div>
+      <div class='panel-body'>
+        <form class='form-horizontal' role='form'>
+          <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='id_accomodation'>Type</label>
+            <div class='col-md-2'>
+              <select class='form-control' id='id_accomodation'>
+                <option>Qualification</option>
+                <option>Production</option>
+                <option>Préproduction</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='id_title'>Chaine</label>
+            <div class='col-md-8'>
+              <div class='col-md-3'>
+                <div class='form-group internal'>
+                  <input class='form-control' id='id_first_name' placeholder='Chaine' type='text'>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" id="server_group">
+            <label class='control-label col-md-2 col-md-offset-2' for='id_checkin'>Serveur</label>
+            <div class='col-md-8'>
+              <div class='col-md-3'>
+                <div class='form-group internal'>
+                  <input class='form-control' placeholder='Rôle' name="serverrule1" type='text'>
+                </div>
+              </div>
+              <div class='col-md-3 indent-small'>
+                <div class='form-group internal'>
+                  <input class='form-control' placeholder='Nom du serveur' name="servername1" type='text'>
+                </div>
+              </div>
+              <div class='col-md-3 indent-small'>
+                <div class='form-group internal'>
+                  <input class='form-control' placeholder='Node group' name="servernode1" type='text'>
+                </div>
+              </div>     
+            </div>
+            
+          </div>
+
+          <div class="form-group">
+            <div class='col-md-offset-4 col-md-3' id='add_server'>
+              <a href="#" id="addRow"><i class="icon-plus-sign icon-white"></i> Ajouter un autre serveur</a>
+            </div>
+          </div>
+
+          <div class="form-group">
+
+          </div>
+
+          <div class='form-group'>
+            <label class='control-label col-md-2 col-md-offset-2' for='id_comments'>Commentaires</label>
+            <div class='col-md-7'>
+              <textarea class='form-control' id='id_comments' placeholder='Indications à rajouter' rows='3'></textarea>
+            </div>
+          </div>
+          <div class='form-group'>
+            <div class='col-md-offset-4 col-md-3'>
+              <button class='btn-lg btn-success' type='submit'>Valider</button>
+            </div>
+            <div class='col-md-3'>
+              <button class='btn-lg btn-danger' style='float:right' type='submit'>Annuler</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- /.row -->
+</div>
+<!-- /#page-wrapper -->
+
+ </div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script type="text/javascript" src="../static/assets/jquery/jquery-2.1.4.min.js" charset="UTF-8"></script>
+        
+<!-- Bootstrap Core JavaScript -->
+<script type="text/javascript" src="../static/assets/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../static/admin/js/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../static/admin/js/startmin.js"></script>
+
+<!-- DATATABLE SCRIPTS  -->
+<script src="../static/assets/js/dataTable/jquery.dataTables.js"></script>
+<script src="../static/assets/js/dataTable/dataTables.bootstrap.js"></script>
+<!-- CUSTOM SCRIPTS  -->
+<script src="../static/assets/js/dataTable/custom.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#addRow').click(function(){
+            // get the last person and html html
+            var $person = $('#server_group').last();
+            var person = $person.html();
+            // find the number
+            var index_rule = person.indexOf('serverrule');
+            var index_name = person.indexOf('servername');
+            var index_node = person.indexOf('servernode');
+
+            var number = parseInt(person.substr(index_rule+10, 1));
+            var next = number+1;
+            // replace the number
+            $('#server_group').attr("id","");
+            // for firstname
+            person = person.substr(0, index_rule+10) + String(next) + person.substr(index_rule+11);
+            person = person.substr(0, index_name+10) + String(next) + person.substr(index_name+11);
+            person = person.substr(0, index_node+10) + String(next) + person.substr(index_node+11);
+            //person.replaceAt(index_rule+10, String(next));
+            //person.replace('serverrule'+String(number), 'serverrule'+String(next));
+            // for lastname
+            //person.replace('servername'+String(number), 'servername'+String(next));
+            // for gender
+            //person.replace('servernode'+String(number), 'servernode'+String(next));
+            // insert the new person after the last one
+            $person.after($('<div class="form-group" id="server_group">'+person+'</div>'));            
+            // get the new person
+            var $new = $('#server_group').last();
+            // hide it
+            $new.hide();
+            // reset the values
+            $new.find('input, select').val('');
+            // fade it in
+            $new.slideDown();
+         });
+    })
+</script>
+
+</body>
+</html>
