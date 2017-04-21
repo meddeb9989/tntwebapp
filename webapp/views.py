@@ -726,3 +726,78 @@ def confirm_recharge(ids):
 
     return response
 
+
+@app.route("/admin/", methods=['GET', 'POST'])
+def admin_page():
+    if request.method == 'GET':
+        response = render_template("admin.html")
+
+    else:
+        if "create" in request.form:
+            response = render_template("add_project.html")
+
+        if "update" in request.form:
+            response = redirect("/subfolders/")
+
+        if "coming" in request.form:
+            response = redirect("/subfolders/")
+
+        if "delete" in request.form:
+            response = render_template("add_project.html")
+
+    return response
+
+@app.route("/subfolders/", methods=['GET', 'POST'])
+def sub_folders():
+    if request.method == 'GET':
+        response = render_template("subfolderview.html")
+
+    else:
+        print request.form 
+        if "update_group" in request.form:
+            response = render_template("add_subfolder.html")
+
+        if "update_job" in request.form:
+            response = redirect("/jobs/")
+
+        if "coming" in request.form:
+            response = render_template("add_job.html")
+
+        if "delete" in request.form:
+            response = render_template("add_project.html")
+
+        
+    return response
+
+@app.route("/jobs/", methods=['GET', 'POST'])
+def jobs():
+    if request.method == 'GET':
+        response = render_template("jobsview.html")
+
+    else:
+        if "create" in request.form:
+            response = redirect("/jobs/add/")
+
+        if "update" in request.form:
+            response = redirect("/jobs/add/")
+
+        
+    return response
+
+@app.route("/jobs/add/", methods=['GET', 'POST'])
+def add_jobs():
+    if request.method == 'GET':
+        response = render_template("add_job.html")
+
+    else:
+        XML_File= open('output.txt',"w")
+        print str(request.form.getlist('planning_days'))
+        et = ""
+        for line in request.form:
+            print line + " : " + request.form[line]
+            et = et + '\n' + str(line) + ' : ' + str(request.form[line])
+        XML_File.write(et)
+        XML_File.close()
+        response = redirect("/jobs/")
+        
+    return response

@@ -32,6 +32,9 @@ def not_found(error):
 def inject_static_assets_url():
     return dict(STATIC_ASSETS_URL=url_for("static", filename="assets"))
 
+@app.context_processor
+def inject_static_assets_url():
+    return dict(STATIC_ADMIN_URL=url_for("static", filename="admin"))
 
 @app.context_processor
 def inject_static_media_url():
