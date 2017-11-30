@@ -26,7 +26,7 @@ def index():
 @app.route("/signin/", methods=['GET', 'POST'])
 def signin():
     if request.method == 'GET':
-        response = render_template("login.html", form='login')
+        response = render_template("coming_soon.html", form='login')
     else:
         if request.form['btn'] == 'Connexion':
 
